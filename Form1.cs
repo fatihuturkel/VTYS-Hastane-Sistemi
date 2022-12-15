@@ -16,5 +16,12 @@ namespace hastane_deneme_1
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //open doctor form
+            Doktor doktor = new Doktor();
+            doktor.Show();
+        }
     }
 }

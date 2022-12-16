@@ -18,7 +18,7 @@ namespace hastane_deneme_1
             InitializeComponent();
         }
 
-        NpgsqlConnection baglanti = new NpgsqlConnection("Server=localhost;Port=5432;User Id=postgres;database=hastane deneme 3;password=Asdasd159");
+        NpgsqlConnection baglanti = new NpgsqlConnection("Server=localhost;Port=5432;User Id=postgres;database=hastanedb;password=Asdasd159");
 
         // doctor form , needed tasks are deleting updating and adding doctors to the database  
 

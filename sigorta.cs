@@ -32,7 +32,8 @@ namespace hastane_deneme_1
         {
 
         }
-        NpgsqlConnection baglanti = new NpgsqlConnection("server=localHost; port=5432; database=hastanedb; user Id=postgres; password=Asdasd159");
+
+        NpgsqlConnection baglanti = new NpgsqlConnection("Server=localhost;Port=5432;User Id=postgres;database=hastanedb;password=Asdasd159");
 
 
         private void button1_Click(object sender, EventArgs e)
@@ -48,21 +49,18 @@ namespace hastane_deneme_1
 
         private void button2_Click(object sender, EventArgs e)
         {
+            // takes data from textboxes and inserts them to the database
+
+            NpgsqlCommand ekle = new NpgsqlCommand("insert into sigorta (isim,telno,adress,mersisno) values (@isim,@telNo,@adress,@mersisNo)", baglanti);
+            ekle.Parameters.AddWithValue("@isim", isim.Text);
+            ekle.Parameters.AddWithValue("@telNo", telNo.Text);
+            ekle.Parameters.AddWithValue("@adress", adres.Text);
+            ekle.Parameters.AddWithValue("@mersisNo", mersisNo.Text);
             baglanti.Open();
-            NpgsqlCommand komut1 = new NpgsqlCommand("insert into sigorta(isim, telNo, adres, mersisNo) values( @p1, @p2, @p3, @p4)", baglanti);
-            komut1.Parameters.AddWithValue("@p1", isim.Text);
-            komut1.Parameters.AddWithValue("@p2", int.Parse(telNo.Text));
-            komut1.Parameters.AddWithValue("@p3", adres.Text);
-            komut1.Parameters.AddWithValue("@p4", int.Parse(mersisNo.Text));
-            komut1.ExecuteNonQuery();
+            ekle.ExecuteNonQuery();
             baglanti.Close();
-            MessageBox.Show("Sigorta ekleme başarılı bir şekilde gerçekleşti.");
-
-
-
-
-
-
+            MessageBox.Show("Sigorta eklendi.");
+            
         }
     }
 }

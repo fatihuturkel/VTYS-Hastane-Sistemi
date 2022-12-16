@@ -36,6 +36,7 @@ namespace hastane_deneme_1
                 if (!tcno_textbox.Text.All(char.IsDigit))
                 {
                     MessageBox.Show("TC Kimlik Numarası sadece rakamlardan oluşmalıdır.");
+                    MessageBox.Show("deneme2");
                 }
                 else
                 {

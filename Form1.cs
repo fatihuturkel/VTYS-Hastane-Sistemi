@@ -23,5 +23,16 @@ namespace hastane_deneme_1
             Doktor doktor = new Doktor();
             doktor.Show();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            sigorta sigorta = new sigorta();
+            sigorta.Show();
+        }
     }
 }

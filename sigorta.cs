@@ -51,7 +51,7 @@ namespace hastane_deneme_1
         {
             // takes data from textboxes and inserts them to the database
 
-            NpgsqlCommand ekle = new NpgsqlCommand("insert into sigorta (isim,telno,adress,mersisno) values (@isim,@telNo,@adress,@mersisNo)", baglanti);
+            NpgsqlCommand ekle = new NpgsqlCommand("insert into sigorta (sigortaid,isim,telno,adress,mersisno) values (@sigortaid,@isim,@telNo,@adress,@mersisNo)", baglanti);
             ekle.Parameters.AddWithValue("@isim", isim.Text);
             ekle.Parameters.AddWithValue("@telNo", telNo.Text);
             ekle.Parameters.AddWithValue("@adress", adres.Text);
@@ -61,6 +61,38 @@ namespace hastane_deneme_1
             baglanti.Close();
             MessageBox.Show("Sigorta eklendi.");
             
+        }
+
+        private void sigorta_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+
+
+        {
+            baglanti.Open();
+            NpgsqlCommand komut2 = new NpgsqlCommand("Delete from sigorta where sigortaid=@sigortaid", baglanti);
+            komut2.Parameters.AddWithValue("@sigortaid",int.Parse(sigortaid).Text));
+            komut2.ExecuteNonQuery();
+            baglanti.Close();
+            MessageBox.Show("Sigorta silme işlemi başarılı bir şekilde gerçekleşti", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -62,5 +62,52 @@ namespace hastane_deneme_1
             MessageBox.Show("Sigorta eklendi.");
             
         }
+
+        private void sigorta_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            baglanti.Open();
+            NpgsqlCommand komut2 = new NpgsqlCommand("Delete from sigorta where sigortaid=@sigortaid", baglanti);
+            komut2.Parameters.AddWithValue("@sigortaid",int.Parse(sigortaid.Text));
+            komut2.ExecuteNonQuery();
+            baglanti.Close();
+            MessageBox.Show("Sigorta silme işlemi başarılı bir şekilde gerçekleşti", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            baglanti.Open();
+            NpgsqlCommand komut3 = new NpgsqlCommand("update sigorta set  isim=@isim,telno=@telNo,adress=@adress,mersisno=@mersisno where sigortaid=@sigortaid", baglanti);
+            komut3.Parameters.AddWithValue("@isim",isim.Text);
+            komut3.Parameters.AddWithValue("@telno",telNo.Text);
+            komut3.Parameters.AddWithValue("@adress",adres.Text);
+            komut3.Parameters.AddWithValue("@mersisno",mersisNo.Text);
+            komut3.Parameters.AddWithValue("@sigortaid", int.Parse(sigortaid.Text));
+            komut3.ExecuteNonQuery();
+            MessageBox.Show("Sigorta güncelleme işlemi başarılı bir şekilde gerçekleşti", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            baglanti.Close();
+
+
+
+        }
     }
 }

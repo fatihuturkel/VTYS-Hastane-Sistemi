@@ -34,5 +34,18 @@ namespace hastane_deneme_1
             sigorta sigorta = new sigorta();
             sigorta.Show();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ilac ilac = new ilac();
+            ilac.Show();
+        }
+
+        private void ilac_Click(object sender, EventArgs e)
+        {
+            ilac ilac = new ilac();
+            ilac.Show();
+
+        }
     }
 }

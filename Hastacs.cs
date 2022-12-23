@@ -1,4 +1,5 @@
 ﻿using Npgsql;
+using System;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -38,8 +39,10 @@ namespace hastane_deneme_1
 
                     if (oku.Read())
                     {
+                        baglanti.Close();
                         NpgsqlCommand updatekisi = new NpgsqlCommand("update kisi set hasta=@hasta where tcno=@tcno", baglanti);
                         updatekisi.Parameters.AddWithValue("@hasta", true);
+                        baglanti.Open();
                         updatekisi.ExecuteNonQuery();
                         baglanti.Close();
                         MessageBox.Show("Hasta kaydı başarıyla eklendi.");
@@ -58,10 +61,12 @@ namespace hastane_deneme_1
                         eklekisi.Parameters.AddWithValue("@hasta", true);
                         baglanti.Open();
                         eklekisi.ExecuteNonQuery();
-                        baglanti.Close();
+
                         NpgsqlCommand eklehasta = new NpgsqlCommand("insert into hasta(kisiid,sigortaid) values(currval('kisi_kisiid_seq'),@sigortaid)", baglanti);
-                        eklehasta.Parameters.AddWithValue("@sigortaid", sigorta_textBox);
-                        baglanti.Open();
+                        if (sigorta_textBox.Text == "Yok")
+                            eklehasta.Parameters.AddWithValue("@sigortaid", 0);
+                        else
+                            eklehasta.Parameters.AddWithValue("@sigortaid", Int32.Parse(sigorta_textBox.Text));
                         eklehasta.ExecuteNonQuery();
                         baglanti.Close();
                         MessageBox.Show("Hasta kaydı başarıyla eklendi.");

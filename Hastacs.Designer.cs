@@ -122,6 +122,7 @@
             this.sigorta_textBox.Name = "sigorta_textBox";
             this.sigorta_textBox.Size = new System.Drawing.Size(135, 22);
             this.sigorta_textBox.TabIndex = 20;
+            this.sigorta_textBox.Text = "Yok";
             this.sigorta_textBox.UseWaitCursor = true;
             // 
             // isim_label

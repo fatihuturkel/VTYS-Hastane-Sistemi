@@ -1,5 +1,6 @@
 ﻿using Npgsql;
 using System;
+using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -73,6 +74,18 @@ namespace hastane_deneme_1
                     }
                 }
             }
+        }
+
+        private void Listele_Click(object sender, EventArgs e)
+        {
+            baglanti.Open();
+            // select isim soyiisim and tc from kisi
+            string listele = "select kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,hasta.sigortaid from kisi inner join hasta on kisi.kisiid=hasta.kisiid";
+            NpgsqlDataAdapter da = new NpgsqlDataAdapter(listele, baglanti);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            dataGridView1.DataSource = dt;
+            baglanti.Close();
         }
     }
 }

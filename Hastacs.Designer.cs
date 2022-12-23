@@ -231,6 +231,7 @@
             this.Listele.TabIndex = 31;
             this.Listele.Text = "Listele";
             this.Listele.UseVisualStyleBackColor = true;
+            this.Listele.Click += new System.EventHandler(this.Listele_Click);
             // 
             // Hastacs
             // 

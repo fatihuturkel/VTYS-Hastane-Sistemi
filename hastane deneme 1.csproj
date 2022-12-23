@@ -106,6 +106,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Hastacs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Hastacs.Designer.cs">
+      <DependentUpon>Hastacs.cs</DependentUpon>
+    </Compile>
     <Compile Include="ilac.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Hastacs.resx">
+      <DependentUpon>Hastacs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ilac.resx">
       <DependentUpon>ilac.cs</DependentUpon>

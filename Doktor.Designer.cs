@@ -170,7 +170,7 @@
             this.cinsiyet_combobox.Name = "cinsiyet_combobox";
             this.cinsiyet_combobox.Size = new System.Drawing.Size(258, 30);
             this.cinsiyet_combobox.TabIndex = 12;
-            this.cinsiyet_combobox.Text = "Lütfen Cinsiyet Seçiniz.";
+            this.cinsiyet_combobox.Text = "Lütfen Seçiniz.";
             this.cinsiyet_combobox.UseWaitCursor = true;
             // 
             // label6

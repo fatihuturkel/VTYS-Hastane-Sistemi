@@ -47,5 +47,11 @@ namespace hastane_deneme_1
             ilac.Show();
 
         }
+
+        private void hasta_Click(object sender, EventArgs e)
+        {
+            Hastacs hasta = new Hastacs();
+            hasta.Show();
+        }
     }
 }

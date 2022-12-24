@@ -33,6 +33,7 @@
             this.ilac = new System.Windows.Forms.Button();
             this.hasta = new System.Windows.Forms.Button();
             this.envanter = new System.Windows.Forms.Button();
+            this.hemsire_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -89,11 +90,23 @@
             this.envanter.UseVisualStyleBackColor = true;
             this.envanter.Click += new System.EventHandler(this.button3_Click_1);
             // 
+            // hemsire_button
+            // 
+            this.hemsire_button.Location = new System.Drawing.Point(193, 202);
+            this.hemsire_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.hemsire_button.Name = "hemsire_button";
+            this.hemsire_button.Size = new System.Drawing.Size(108, 33);
+            this.hemsire_button.TabIndex = 5;
+            this.hemsire_button.Text = "Hemsire";
+            this.hemsire_button.UseVisualStyleBackColor = true;
+            this.hemsire_button.Click += new System.EventHandler(this.hemsire_button_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.hemsire_button);
             this.Controls.Add(this.envanter);
             this.Controls.Add(this.hasta);
             this.Controls.Add(this.ilac);
@@ -113,6 +126,7 @@
         private System.Windows.Forms.Button ilac;
         private System.Windows.Forms.Button hasta;
         private System.Windows.Forms.Button envanter;
+        private System.Windows.Forms.Button hemsire_button;
     }
 }
 

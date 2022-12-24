@@ -59,5 +59,11 @@ namespace hastane_deneme_1
             envanter envanter = new envanter();
             envanter.Show();    
         }
+
+        private void hemsire_button_Click(object sender, EventArgs e)
+        {
+            Hemsire hemsire = new Hemsire();
+            hemsire.Show();
+        }
     }
 }

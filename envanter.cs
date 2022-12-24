@@ -68,7 +68,7 @@ namespace hastane_deneme_1
            
             komut3.Parameters.AddWithValue("@urunid", int.Parse(urunid.Text));
             komut3.ExecuteNonQuery();
-            MessageBox.Show("İlaç güncelleme işlemi başarılı bir şekilde gerçekleşti", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            MessageBox.Show("Envanter güncelleme işlemi başarılı bir şekilde gerçekleşti", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             baglanti.Close();
 
         }

@@ -66,5 +66,11 @@ namespace hastane_deneme_1
             ekipman.Show(); 
             
         }
+
+        private void islem_Click(object sender, EventArgs e)
+        {
+            islem islem = new islem();
+            islem.Show();
+        }
     }
 }

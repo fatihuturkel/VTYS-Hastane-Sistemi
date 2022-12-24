@@ -34,6 +34,7 @@
             this.hasta = new System.Windows.Forms.Button();
             this.envanter = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.islem = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -101,11 +102,22 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click_2);
             // 
+            // islem
+            // 
+            this.islem.Location = new System.Drawing.Point(251, 39);
+            this.islem.Name = "islem";
+            this.islem.Size = new System.Drawing.Size(107, 40);
+            this.islem.TabIndex = 6;
+            this.islem.Text = "islem";
+            this.islem.UseVisualStyleBackColor = true;
+            this.islem.Click += new System.EventHandler(this.islem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(900, 562);
+            this.Controls.Add(this.islem);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.envanter);
             this.Controls.Add(this.hasta);
@@ -128,6 +140,7 @@
         private System.Windows.Forms.Button hasta;
         private System.Windows.Forms.Button envanter;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button islem;
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace hastane_deneme_1
 {
@@ -36,11 +37,8 @@ namespace hastane_deneme_1
             this.hasta = new System.Windows.Forms.Button();
             this.envanter = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-<<<<<<< HEAD
             this.islem = new System.Windows.Forms.Button();
-=======
             this.hemsire_button = new System.Windows.Forms.Button();
->>>>>>> 897ca360bd142640bdf06e0a15f38b24a88400a7
             this.SuspendLayout();
             // 
             // button1
@@ -108,7 +106,6 @@ namespace hastane_deneme_1
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click_2);
             // 
-<<<<<<< HEAD
             // islem
             // 
             this.islem.Location = new System.Drawing.Point(251, 39);
@@ -118,7 +115,6 @@ namespace hastane_deneme_1
             this.islem.Text = "islem";
             this.islem.UseVisualStyleBackColor = true;
             this.islem.Click += new System.EventHandler(this.islem_Click);
-=======
             // hemsire_button
             // 
             this.hemsire_button.Location = new System.Drawing.Point(173, 202);
@@ -129,18 +125,14 @@ namespace hastane_deneme_1
             this.hemsire_button.Text = "Hemsire";
             this.hemsire_button.UseVisualStyleBackColor = true;
             this.hemsire_button.Click += new System.EventHandler(this.hemsire_button_Click);
->>>>>>> 897ca360bd142640bdf06e0a15f38b24a88400a7
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-<<<<<<< HEAD
             this.ClientSize = new System.Drawing.Size(900, 562);
             this.Controls.Add(this.islem);
-=======
             this.ClientSize = new System.Drawing.Size(711, 360);
->>>>>>> 897ca360bd142640bdf06e0a15f38b24a88400a7
             this.Controls.Add(this.button3);
             this.Controls.Add(this.hemsire_button);
             this.Controls.Add(this.envanter);
@@ -168,11 +160,8 @@ namespace hastane_deneme_1
         private System.Windows.Forms.Button hasta;
         private System.Windows.Forms.Button envanter;
         private System.Windows.Forms.Button button3;
-<<<<<<< HEAD
         private System.Windows.Forms.Button islem;
-=======
         private System.Windows.Forms.Button hemsire_button;
->>>>>>> 897ca360bd142640bdf06e0a15f38b24a88400a7
     }
 }
 

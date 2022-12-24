@@ -59,5 +59,12 @@ namespace hastane_deneme_1
             envanter envanter = new envanter();
             envanter.Show();    
         }
+
+        private void button3_Click_2(object sender, EventArgs e)
+        {
+            ekipman ekipman = new ekipman();
+            ekipman.Show(); 
+            
+        }
     }
 }

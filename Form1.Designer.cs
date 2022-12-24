@@ -1,4 +1,6 @@
-﻿namespace hastane_deneme_1
+﻿using System;
+
+namespace hastane_deneme_1
 {
     partial class Form1
     {
@@ -34,15 +36,18 @@
             this.hasta = new System.Windows.Forms.Button();
             this.envanter = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+<<<<<<< HEAD
             this.islem = new System.Windows.Forms.Button();
+=======
+            this.hemsire_button = new System.Windows.Forms.Button();
+>>>>>>> 897ca360bd142640bdf06e0a15f38b24a88400a7
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(40, 39);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button1.Location = new System.Drawing.Point(36, 31);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(130, 40);
+            this.button1.Size = new System.Drawing.Size(116, 32);
             this.button1.TabIndex = 0;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -50,10 +55,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(40, 112);
+            this.button2.Location = new System.Drawing.Point(36, 90);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(130, 45);
+            this.button2.Size = new System.Drawing.Size(116, 36);
             this.button2.TabIndex = 1;
             this.button2.Text = "sigorta";
             this.button2.UseVisualStyleBackColor = true;
@@ -61,10 +66,10 @@
             // 
             // ilac
             // 
-            this.ilac.Location = new System.Drawing.Point(40, 180);
+            this.ilac.Location = new System.Drawing.Point(36, 144);
             this.ilac.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ilac.Name = "ilac";
-            this.ilac.Size = new System.Drawing.Size(127, 41);
+            this.ilac.Size = new System.Drawing.Size(113, 33);
             this.ilac.TabIndex = 2;
             this.ilac.Text = "ilac";
             this.ilac.UseVisualStyleBackColor = true;
@@ -72,10 +77,10 @@
             // 
             // hasta
             // 
-            this.hasta.Location = new System.Drawing.Point(40, 252);
+            this.hasta.Location = new System.Drawing.Point(36, 202);
             this.hasta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.hasta.Name = "hasta";
-            this.hasta.Size = new System.Drawing.Size(127, 41);
+            this.hasta.Size = new System.Drawing.Size(113, 30);
             this.hasta.TabIndex = 3;
             this.hasta.Text = "hasta";
             this.hasta.UseVisualStyleBackColor = true;
@@ -83,10 +88,10 @@
             // 
             // envanter
             // 
-            this.envanter.Location = new System.Drawing.Point(40, 324);
+            this.envanter.Location = new System.Drawing.Point(36, 259);
             this.envanter.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.envanter.Name = "envanter";
-            this.envanter.Size = new System.Drawing.Size(122, 41);
+            this.envanter.Size = new System.Drawing.Size(108, 33);
             this.envanter.TabIndex = 4;
             this.envanter.Text = "envanter";
             this.envanter.UseVisualStyleBackColor = true;
@@ -94,14 +99,16 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(40, 389);
+            this.button3.Location = new System.Drawing.Point(36, 311);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(122, 31);
+            this.button3.Size = new System.Drawing.Size(108, 29);
             this.button3.TabIndex = 5;
             this.button3.Text = "ekipman";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click_2);
             // 
+<<<<<<< HEAD
             // islem
             // 
             this.islem.Location = new System.Drawing.Point(251, 39);
@@ -111,25 +118,46 @@
             this.islem.Text = "islem";
             this.islem.UseVisualStyleBackColor = true;
             this.islem.Click += new System.EventHandler(this.islem_Click);
+=======
+            // hemsire_button
+            // 
+            this.hemsire_button.Location = new System.Drawing.Point(173, 202);
+            this.hemsire_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.hemsire_button.Name = "hemsire_button";
+            this.hemsire_button.Size = new System.Drawing.Size(104, 30);
+            this.hemsire_button.TabIndex = 5;
+            this.hemsire_button.Text = "Hemsire";
+            this.hemsire_button.UseVisualStyleBackColor = true;
+            this.hemsire_button.Click += new System.EventHandler(this.hemsire_button_Click);
+>>>>>>> 897ca360bd142640bdf06e0a15f38b24a88400a7
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+<<<<<<< HEAD
             this.ClientSize = new System.Drawing.Size(900, 562);
             this.Controls.Add(this.islem);
+=======
+            this.ClientSize = new System.Drawing.Size(711, 360);
+>>>>>>> 897ca360bd142640bdf06e0a15f38b24a88400a7
             this.Controls.Add(this.button3);
+            this.Controls.Add(this.hemsire_button);
             this.Controls.Add(this.envanter);
             this.Controls.Add(this.hasta);
             this.Controls.Add(this.ilac);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
@@ -140,7 +168,11 @@
         private System.Windows.Forms.Button hasta;
         private System.Windows.Forms.Button envanter;
         private System.Windows.Forms.Button button3;
+<<<<<<< HEAD
         private System.Windows.Forms.Button islem;
+=======
+        private System.Windows.Forms.Button hemsire_button;
+>>>>>>> 897ca360bd142640bdf06e0a15f38b24a88400a7
     }
 }
 

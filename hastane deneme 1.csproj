@@ -124,6 +124,12 @@
     <Compile Include="Hastacs.Designer.cs">
       <DependentUpon>Hastacs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Hemsire.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Hemsire.Designer.cs">
+      <DependentUpon>Hemsire.cs</DependentUpon>
+    </Compile>
     <Compile Include="ilac.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Hastacs.resx">
       <DependentUpon>Hastacs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Hemsire.resx">
+      <DependentUpon>Hemsire.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ilac.resx">
       <DependentUpon>ilac.cs</DependentUpon>

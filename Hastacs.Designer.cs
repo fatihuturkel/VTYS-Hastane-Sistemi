@@ -207,12 +207,13 @@
             // 
             // Sil
             // 
-            this.Sil.Location = new System.Drawing.Point(643, 15);
+            this.Sil.Location = new System.Drawing.Point(634, 15);
             this.Sil.Name = "Sil";
             this.Sil.Size = new System.Drawing.Size(84, 42);
             this.Sil.TabIndex = 29;
             this.Sil.Text = "Sil";
             this.Sil.UseVisualStyleBackColor = true;
+            this.Sil.Click += new System.EventHandler(this.Sil_Click);
             // 
             // Güncelle
             // 

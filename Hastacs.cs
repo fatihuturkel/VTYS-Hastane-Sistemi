@@ -87,6 +87,16 @@ namespace hastane_deneme_1
             dataGridView1.DataSource = dt;
             baglanti.Close();
         }
+
+        private void Sil_Click(object sender, EventArgs e)
+        {
+            // delete from kisi where tcno = @tcno
+            baglanti.Open();
+            NpgsqlCommand sil = new NpgsqlCommand("delete from kisi where tcno=@tcno", baglanti);
+            sil.Parameters.AddWithValue("@tcno", Tc_textBox.Text);
+            sil.ExecuteNonQuery();
+            baglanti.Close();
+        }
     }
 }
 

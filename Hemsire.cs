@@ -96,5 +96,6 @@ namespace hastane_deneme_1
             baglanti.Close();
 
         }
+        
     }
 }

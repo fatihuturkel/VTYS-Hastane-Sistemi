@@ -100,6 +100,12 @@
     <Compile Include="Doktor.Designer.cs">
       <DependentUpon>Doktor.cs</DependentUpon>
     </Compile>
+    <Compile Include="ekipman.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ekipman.Designer.cs">
+      <DependentUpon>ekipman.cs</DependentUpon>
+    </Compile>
     <Compile Include="envanter.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +146,9 @@
     </Compile>
     <EmbeddedResource Include="Doktor.resx">
       <DependentUpon>Doktor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ekipman.resx">
+      <DependentUpon>ekipman.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="envanter.resx">
       <DependentUpon>envanter.cs</DependentUpon>

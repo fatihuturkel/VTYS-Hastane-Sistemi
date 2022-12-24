@@ -55,9 +55,12 @@ namespace hastane_deneme_1
         }
 
         private void button3_Click_1(object sender, EventArgs e)
+
+        private void button3_Click_2(object sender, EventArgs e)
         {
-            envanter envanter = new envanter();
-            envanter.Show();    
+            ekipman ekipman = new ekipman();
+            ekipman.Show(); 
+            
         }
 
         private void hemsire_button_Click(object sender, EventArgs e)
@@ -65,5 +68,3 @@ namespace hastane_deneme_1
             Hemsire hemsire = new Hemsire();
             hemsire.Show();
         }
-    }
-}

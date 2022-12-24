@@ -1,4 +1,6 @@
-﻿namespace hastane_deneme_1
+﻿using System;
+
+namespace hastane_deneme_1
 {
     partial class Form1
     {
@@ -132,6 +134,11 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

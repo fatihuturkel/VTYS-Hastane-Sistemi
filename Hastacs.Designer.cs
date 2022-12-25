@@ -60,7 +60,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(1054, 286);
+            this.dataGridView1.Size = new System.Drawing.Size(1236, 286);
             this.dataGridView1.TabIndex = 13;
             // 
             // isim_textBox
@@ -208,7 +208,7 @@
             // 
             // Sil
             // 
-            this.Sil.Location = new System.Drawing.Point(634, 15);
+            this.Sil.Location = new System.Drawing.Point(723, 15);
             this.Sil.Name = "Sil";
             this.Sil.Size = new System.Drawing.Size(84, 42);
             this.Sil.TabIndex = 29;
@@ -218,7 +218,7 @@
             // 
             // Güncelle
             // 
-            this.Güncelle.Location = new System.Drawing.Point(490, 15);
+            this.Güncelle.Location = new System.Drawing.Point(531, 15);
             this.Güncelle.Name = "Güncelle";
             this.Güncelle.Size = new System.Drawing.Size(101, 42);
             this.Güncelle.TabIndex = 30;
@@ -227,7 +227,7 @@
             // 
             // Listele
             // 
-            this.Listele.Location = new System.Drawing.Point(923, 15);
+            this.Listele.Location = new System.Drawing.Point(1103, 15);
             this.Listele.Name = "Listele";
             this.Listele.Size = new System.Drawing.Size(86, 42);
             this.Listele.TabIndex = 31;
@@ -237,7 +237,7 @@
             // 
             // Ara
             // 
-            this.Ara.Location = new System.Drawing.Point(776, 15);
+            this.Ara.Location = new System.Drawing.Point(895, 15);
             this.Ara.Name = "Ara";
             this.Ara.Size = new System.Drawing.Size(107, 42);
             this.Ara.TabIndex = 75;
@@ -250,7 +250,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1078, 618);
+            this.ClientSize = new System.Drawing.Size(1260, 618);
             this.Controls.Add(this.Ara);
             this.Controls.Add(this.Listele);
             this.Controls.Add(this.Güncelle);

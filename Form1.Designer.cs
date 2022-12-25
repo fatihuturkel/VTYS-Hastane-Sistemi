@@ -39,13 +39,14 @@ namespace hastane_deneme_1
             this.button3 = new System.Windows.Forms.Button();
             this.islem = new System.Windows.Forms.Button();
             this.hemsire_button = new System.Windows.Forms.Button();
+            this.randevu_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // doktor_button
             // 
-            this.doktor_button.Location = new System.Drawing.Point(295, 200);
+            this.doktor_button.Location = new System.Drawing.Point(255, 31);
             this.doktor_button.Name = "doktor_button";
-            this.doktor_button.Size = new System.Drawing.Size(116, 32);
+            this.doktor_button.Size = new System.Drawing.Size(104, 30);
             this.doktor_button.TabIndex = 0;
             this.doktor_button.Text = "Doktor";
             this.doktor_button.UseVisualStyleBackColor = true;
@@ -53,7 +54,7 @@ namespace hastane_deneme_1
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(36, 90);
+            this.button2.Location = new System.Drawing.Point(583, 202);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(116, 36);
@@ -64,7 +65,7 @@ namespace hastane_deneme_1
             // 
             // ilac
             // 
-            this.ilac.Location = new System.Drawing.Point(36, 144);
+            this.ilac.Location = new System.Drawing.Point(521, 146);
             this.ilac.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ilac.Name = "ilac";
             this.ilac.Size = new System.Drawing.Size(113, 33);
@@ -75,10 +76,10 @@ namespace hastane_deneme_1
             // 
             // hasta
             // 
-            this.hasta.Location = new System.Drawing.Point(36, 202);
+            this.hasta.Location = new System.Drawing.Point(35, 31);
             this.hasta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.hasta.Name = "hasta";
-            this.hasta.Size = new System.Drawing.Size(113, 30);
+            this.hasta.Size = new System.Drawing.Size(104, 30);
             this.hasta.TabIndex = 3;
             this.hasta.Text = "Hasta";
             this.hasta.UseVisualStyleBackColor = true;
@@ -86,7 +87,7 @@ namespace hastane_deneme_1
             // 
             // envanter
             // 
-            this.envanter.Location = new System.Drawing.Point(36, 259);
+            this.envanter.Location = new System.Drawing.Point(511, 31);
             this.envanter.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.envanter.Name = "envanter";
             this.envanter.Size = new System.Drawing.Size(108, 33);
@@ -97,7 +98,7 @@ namespace hastane_deneme_1
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(36, 311);
+            this.button3.Location = new System.Drawing.Point(511, 78);
             this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(108, 29);
@@ -108,7 +109,7 @@ namespace hastane_deneme_1
             // 
             // islem
             // 
-            this.islem.Location = new System.Drawing.Point(304, 31);
+            this.islem.Location = new System.Drawing.Point(544, 278);
             this.islem.Name = "islem";
             this.islem.Size = new System.Drawing.Size(107, 40);
             this.islem.TabIndex = 6;
@@ -118,7 +119,7 @@ namespace hastane_deneme_1
             // 
             // hemsire_button
             // 
-            this.hemsire_button.Location = new System.Drawing.Point(173, 202);
+            this.hemsire_button.Location = new System.Drawing.Point(145, 31);
             this.hemsire_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.hemsire_button.Name = "hemsire_button";
             this.hemsire_button.Size = new System.Drawing.Size(104, 30);
@@ -127,11 +128,23 @@ namespace hastane_deneme_1
             this.hemsire_button.UseVisualStyleBackColor = true;
             this.hemsire_button.Click += new System.EventHandler(this.hemsire_button_Click);
             // 
+            // randevu_button
+            // 
+            this.randevu_button.Location = new System.Drawing.Point(35, 88);
+            this.randevu_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.randevu_button.Name = "randevu_button";
+            this.randevu_button.Size = new System.Drawing.Size(108, 29);
+            this.randevu_button.TabIndex = 7;
+            this.randevu_button.Text = "Randevu";
+            this.randevu_button.UseVisualStyleBackColor = true;
+            this.randevu_button.Click += new System.EventHandler(this.randevu_button_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(711, 360);
+            this.Controls.Add(this.randevu_button);
             this.Controls.Add(this.islem);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.hemsire_button);
@@ -162,6 +175,7 @@ namespace hastane_deneme_1
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button islem;
         private System.Windows.Forms.Button hemsire_button;
+        private Button randevu_button;
     }
 }
 

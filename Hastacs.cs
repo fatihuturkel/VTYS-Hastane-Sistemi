@@ -80,7 +80,7 @@ namespace hastane_deneme_1
         {
             baglanti.Open();
             // select isim soyiisim and tc from kisi
-            string listele = "select kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,hasta.sigortaid from kisi inner join hasta on kisi.kisiid=hasta.kisiid";
+            string listele = "select kisi.kisiid,kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,hasta.sigortaid,sigorta.isim as sigortaisim from kisi inner join hasta on kisi.kisiid=hasta.kisiid inner join sigorta on hasta.sigortaid=sigorta.sigortaid where kisi.hasta=true";
             NpgsqlDataAdapter da = new NpgsqlDataAdapter(listele, baglanti);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -115,7 +115,7 @@ namespace hastane_deneme_1
                 else
                 {
                     //list a patient with tcno = @tcno from kisi and hasta tables 
-                    string ara = "select kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,hasta.sigortaid from kisi inner join hasta on kisi.kisiid=hasta.kisiid where tcno=@tcno";
+                    string ara = "select kisi.kisiid,kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,hasta.sigortaid,sigorta.isim as sigortaisim from kisi inner join hasta on kisi.kisiid=hasta.kisiid inner join sigorta on hasta.sigortaid=sigorta.sigortaid where kisi.hasta=true";
                     NpgsqlDataAdapter da = new NpgsqlDataAdapter(ara, baglanti);
                     da.SelectCommand.Parameters.AddWithValue("@tcno", Tc_textBox.Text);
                     DataTable dt = new DataTable();

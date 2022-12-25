@@ -159,7 +159,7 @@ namespace hastane_deneme_1
                 else
                 {
                     //list a nurse to datagrid where  inner join doktor on kisi.kisiid=doktor.kisiid
-                    string ara = "select kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,doktor.maas,doktor.pozisyon from kisi inner join doktor on kisi.kisiid=doktor.kisiid where tcno=@tcno";
+                    string ara = "select kisi.kisiid,kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,doktor.pozisyon,doktor.maas from kisi inner join doktor on kisi.kisiid=doktor.kisiid where tcno=@tcno";
                     NpgsqlDataAdapter da = new NpgsqlDataAdapter(ara, baglanti);
                     da.SelectCommand.Parameters.AddWithValue("@tcno", Tc_textBox.Text);
                     DataTable dt = new DataTable();
@@ -174,7 +174,7 @@ namespace hastane_deneme_1
         {
             //list all doktorcs to datagrid
 
-            string listele = "select kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,doktor.maas,doktor.pozisyon from kisi inner join doktor on kisi.kisiid=doktor.kisiid";
+            string listele = "select kisi.kisiid,kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,doktor.pozisyon,doktor.maas from kisi inner join doktor on kisi.kisiid=doktor.kisiid";
             NpgsqlDataAdapter da = new NpgsqlDataAdapter(listele, baglanti);
             DataTable dt = new DataTable();
             da.Fill(dt);

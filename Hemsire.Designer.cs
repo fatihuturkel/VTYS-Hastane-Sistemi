@@ -55,9 +55,9 @@
             // 
             // Listele
             // 
-            this.Listele.Location = new System.Drawing.Point(1029, 24);
+            this.Listele.Location = new System.Drawing.Point(1082, 24);
             this.Listele.Name = "Listele";
-            this.Listele.Size = new System.Drawing.Size(86, 42);
+            this.Listele.Size = new System.Drawing.Size(91, 63);
             this.Listele.TabIndex = 50;
             this.Listele.Text = "Listele";
             this.Listele.UseVisualStyleBackColor = true;
@@ -65,9 +65,9 @@
             // 
             // Güncelle
             // 
-            this.Güncelle.Location = new System.Drawing.Point(571, 24);
+            this.Güncelle.Location = new System.Drawing.Point(592, 24);
             this.Güncelle.Name = "Güncelle";
-            this.Güncelle.Size = new System.Drawing.Size(101, 42);
+            this.Güncelle.Size = new System.Drawing.Size(114, 63);
             this.Güncelle.TabIndex = 49;
             this.Güncelle.Text = "Güncelle";
             this.Güncelle.UseVisualStyleBackColor = true;
@@ -75,9 +75,9 @@
             // 
             // Sil
             // 
-            this.Sil.Location = new System.Drawing.Point(713, 24);
+            this.Sil.Location = new System.Drawing.Point(753, 24);
             this.Sil.Name = "Sil";
-            this.Sil.Size = new System.Drawing.Size(84, 42);
+            this.Sil.Size = new System.Drawing.Size(91, 63);
             this.Sil.TabIndex = 48;
             this.Sil.Text = "Sil";
             this.Sil.UseVisualStyleBackColor = true;
@@ -87,7 +87,7 @@
             // 
             this.ekle.Location = new System.Drawing.Point(439, 24);
             this.ekle.Name = "ekle";
-            this.ekle.Size = new System.Drawing.Size(91, 42);
+            this.ekle.Size = new System.Drawing.Size(107, 63);
             this.ekle.TabIndex = 47;
             this.ekle.Text = "Ekle";
             this.ekle.UseVisualStyleBackColor = true;
@@ -234,7 +234,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(1132, 242);
+            this.dataGridView1.Size = new System.Drawing.Size(1219, 242);
             this.dataGridView1.TabIndex = 32;
             // 
             // label1
@@ -257,9 +257,9 @@
             // 
             // Ara
             // 
-            this.Ara.Location = new System.Drawing.Point(859, 24);
+            this.Ara.Location = new System.Drawing.Point(919, 24);
             this.Ara.Name = "Ara";
-            this.Ara.Size = new System.Drawing.Size(107, 42);
+            this.Ara.Size = new System.Drawing.Size(98, 63);
             this.Ara.TabIndex = 53;
             this.Ara.Text = "Ara";
             this.Ara.UseVisualStyleBackColor = true;
@@ -269,7 +269,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1156, 632);
+            this.ClientSize = new System.Drawing.Size(1243, 632);
             this.Controls.Add(this.Ara);
             this.Controls.Add(this.maas_textBox);
             this.Controls.Add(this.label1);

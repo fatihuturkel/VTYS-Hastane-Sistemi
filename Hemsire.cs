@@ -105,7 +105,7 @@ namespace hastane_deneme_1
         private void Listele_Click(object sender, EventArgs e)
         {
             // list all nurses to datagrid
-            string listele = "select kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,hemsire.maas,hemsire.pozisyon from kisi inner join hemsire on kisi.kisiid=hemsire.kisiid";
+            string listele = "select kisi.kisiid,kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,hemsire.pozisyon,hemsire.maas from kisi inner join hemsire on kisi.kisiid=hemsire.kisiid";
             NpgsqlDataAdapter da = new NpgsqlDataAdapter(listele, baglanti);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -138,7 +138,7 @@ namespace hastane_deneme_1
                     baglanti.Open();
                     updatekisi.ExecuteNonQuery();
                     baglanti.Close();
-                    
+
                     //update hemsire where hemsire.kisiid = (select kisiid from kisi where tcno = @tcno)
                     NpgsqlCommand updatehemsire = new NpgsqlCommand("update hemsire set pozisyon=@pozisyon,maas=@maas where hemsire.kisiid = (select kisiid from kisi where tcno = @tcno)", baglanti);
                     updatehemsire.Parameters.AddWithValue("@pozisyon", pozisyon_textBox.Text);
@@ -169,7 +169,7 @@ namespace hastane_deneme_1
                 else
                 {
                     //list a nurse to datagrid where  inner join hemsire on kisi.kisiid=hemsire.kisiid
-                    string ara = "select kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,hemsire.maas,hemsire.pozisyon from kisi inner join hemsire on kisi.kisiid=hemsire.kisiid where tcno=@tcno";
+                    string ara = "select kisi.kisiid,kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,hemsire.pozisyon,hemsire.maas from kisi inner join hemsire on kisi.kisiid=hemsire.kisiid where tcno=@tcno";
                     NpgsqlDataAdapter da = new NpgsqlDataAdapter(ara, baglanti);
                     da.SelectCommand.Parameters.AddWithValue("@tcno", Tc_textBox.Text);
                     DataTable dt = new DataTable();
@@ -177,7 +177,7 @@ namespace hastane_deneme_1
                     dataGridView1.DataSource = dt;
                     baglanti.Close();
                 }
-            } 
+            }
         }
     }
 }

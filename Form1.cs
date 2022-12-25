@@ -66,5 +66,11 @@ namespace hastane_deneme_1
             islem islem = new islem();
             islem.Show();
         }
+
+        private void randevu_button_Click(object sender, EventArgs e)
+        {
+            Randevu randevu = new Randevu();
+            randevu.Show();
+        }
     }
 }

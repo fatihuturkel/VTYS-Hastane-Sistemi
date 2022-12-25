@@ -47,6 +47,7 @@
             this.Sil = new System.Windows.Forms.Button();
             this.Güncelle = new System.Windows.Forms.Button();
             this.Listele = new System.Windows.Forms.Button();
+            this.Ara = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,7 +60,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(836, 170);
+            this.dataGridView1.Size = new System.Drawing.Size(1054, 286);
             this.dataGridView1.TabIndex = 13;
             // 
             // isim_textBox
@@ -197,7 +198,7 @@
             // 
             // ekle
             // 
-            this.ekle.Location = new System.Drawing.Point(508, 15);
+            this.ekle.Location = new System.Drawing.Point(364, 15);
             this.ekle.Name = "ekle";
             this.ekle.Size = new System.Drawing.Size(91, 42);
             this.ekle.TabIndex = 28;
@@ -217,7 +218,7 @@
             // 
             // Güncelle
             // 
-            this.Güncelle.Location = new System.Drawing.Point(747, 15);
+            this.Güncelle.Location = new System.Drawing.Point(490, 15);
             this.Güncelle.Name = "Güncelle";
             this.Güncelle.Size = new System.Drawing.Size(101, 42);
             this.Güncelle.TabIndex = 30;
@@ -226,7 +227,7 @@
             // 
             // Listele
             // 
-            this.Listele.Location = new System.Drawing.Point(377, 15);
+            this.Listele.Location = new System.Drawing.Point(923, 15);
             this.Listele.Name = "Listele";
             this.Listele.Size = new System.Drawing.Size(86, 42);
             this.Listele.TabIndex = 31;
@@ -234,11 +235,23 @@
             this.Listele.UseVisualStyleBackColor = true;
             this.Listele.Click += new System.EventHandler(this.Listele_Click);
             // 
+            // Ara
+            // 
+            this.Ara.Location = new System.Drawing.Point(776, 15);
+            this.Ara.Name = "Ara";
+            this.Ara.Size = new System.Drawing.Size(107, 42);
+            this.Ara.TabIndex = 75;
+            this.Ara.Text = "Ara";
+            this.Ara.UseVisualStyleBackColor = true;
+            this.Ara.UseWaitCursor = true;
+            this.Ara.Click += new System.EventHandler(this.Ara_Click);
+            // 
             // Hastacs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(860, 502);
+            this.ClientSize = new System.Drawing.Size(1078, 618);
+            this.Controls.Add(this.Ara);
             this.Controls.Add(this.Listele);
             this.Controls.Add(this.Güncelle);
             this.Controls.Add(this.Sil);
@@ -287,5 +300,6 @@
         private System.Windows.Forms.Button Sil;
         private System.Windows.Forms.Button Güncelle;
         private System.Windows.Forms.Button Listele;
+        private System.Windows.Forms.Button Ara;
     }
 }

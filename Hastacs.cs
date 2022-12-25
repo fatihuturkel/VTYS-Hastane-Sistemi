@@ -97,6 +97,34 @@ namespace hastane_deneme_1
             sil.ExecuteNonQuery();
             baglanti.Close();
         }
+
+        private void Ara_Click(object sender, EventArgs e)
+        {
+            //check tc no
+            if (Tc_textBox.Text.Length != 11)
+            {
+                MessageBox.Show("TC Kimlik Numarası 11 haneli olmalıdır.");
+            }
+            else
+            {
+                // check if tcNo_textbox is not numeric
+                if (!Tc_textBox.Text.All(char.IsDigit))
+                {
+                    MessageBox.Show("TC Kimlik Numarası sadece rakamlardan oluşmalıdır.");
+                }
+                else
+                {
+                    //list a patient with tcno = @tcno from kisi and hasta tables 
+                    string ara = "select kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,hasta.sigortaid from kisi inner join hasta on kisi.kisiid=hasta.kisiid where tcno=@tcno";
+                    NpgsqlDataAdapter da = new NpgsqlDataAdapter(ara, baglanti);
+                    da.SelectCommand.Parameters.AddWithValue("@tcno", Tc_textBox.Text);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    dataGridView1.DataSource = dt;
+                    baglanti.Close();
+                }
+            }
+        }
     }
 }
 

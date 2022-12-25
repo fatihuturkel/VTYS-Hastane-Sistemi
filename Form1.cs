@@ -78,6 +78,11 @@ namespace hastane_deneme_1
             duyurular duyurular = new duyurular();
             duyurular.Show();
         }
-        
+
+        private void gorusoneri_Click(object sender, EventArgs e)
+        {
+            gorusoneri gorusoneri = new gorusoneri();
+            gorusoneri.Show();
+        }
     }
 }

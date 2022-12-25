@@ -37,45 +37,47 @@ namespace hastane_deneme_1
 
         private void Ekle_Click(object sender, EventArgs e)
         {
-            NpgsqlCommand ekle = new NpgsqlCommand("insert into gorusoneri(isim,soyisim,baslik,aciklama) values (@isim,@soyisim,@baslik,@aciklama)", baglanti);
+            NpgsqlCommand ekle = new NpgsqlCommand("insert into gorusoneri(isim,soyisim,aciklama,baslik) values (@isim,@soyisim,@aciklama,@baslik)", baglanti);
             ekle.Parameters.AddWithValue("@isim", isim.Text);
             ekle.Parameters.AddWithValue("@soyisim", soyisim.Text);
-            ekle.Parameters.AddWithValue("@baslik", baslik.Text);
             ekle.Parameters.AddWithValue("@aciklama", aciklama.Text);
-
+            ekle.Parameters.AddWithValue("@baslik", baslik.Text);
+            
+            
             baglanti.Open();
             ekle.ExecuteNonQuery();
             baglanti.Close();
-            MessageBox.Show("Envanter eklendi.");
+            MessageBox.Show("Görüş ve Öneri eklendi.");
         }
 
         private void Sil_Click(object sender, EventArgs e)
         {
             baglanti.Open();
-            NpgsqlCommand komut2 = new NpgsqlCommand("Delete from envanter where gorusoneriid=@gorusoneriid", baglanti);
+            NpgsqlCommand komut2 = new NpgsqlCommand("Delete from gorusoneri where gorusoneriid=@gorusoneriid", baglanti);
             komut2.Parameters.AddWithValue("@gorusoneriid", int.Parse(gorusoneriid.Text));
             komut2.ExecuteNonQuery();
             baglanti.Close();
-            MessageBox.Show("Görüş Öneri silme işlemi başarılı bir şekilde gerçekleşti", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            MessageBox.Show("Görüş ve Öneri silme işlemi başarılı bir şekilde gerçekleşti", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
 
         private void Güncelle_Click(object sender, EventArgs e)
         {
             baglanti.Open();
             NpgsqlCommand komut3 = new NpgsqlCommand("update gorusoneri set isim=@isim,soyisim=@soyisim,baslik=@baslik aciklama=@aciklama where gorusoneriid=@gorusoneriid", baglanti);
-          
+           
             komut3.Parameters.AddWithValue("@isim", isim.Text);
             komut3.Parameters.AddWithValue("@soyisim", soyisim.Text);
             komut3.Parameters.AddWithValue("@baslik", baslik.Text);
             komut3.Parameters.AddWithValue("@aciklama", aciklama.Text);
             
-        
+           
            
 
-            komut3.Parameters.AddWithValue("@gorusoneriid", int.Parse(gorusoneriid.Text));
+            komut3.Parameters.AddWithValue("@gorusoneriid", int.Parse(gorusonerid.Text));
             komut3.ExecuteNonQuery();
             MessageBox.Show("Görüş ve Öneri güncelleme işlemi başarılı bir şekilde gerçekleşti", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             baglanti.Close();
+
         }
     }
 }

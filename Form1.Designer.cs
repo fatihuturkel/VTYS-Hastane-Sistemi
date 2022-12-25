@@ -40,7 +40,7 @@ namespace hastane_deneme_1
             this.islem = new System.Windows.Forms.Button();
             this.hemsire_button = new System.Windows.Forms.Button();
             this.Duyurular = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.gorusoneri = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -141,21 +141,22 @@ namespace hastane_deneme_1
             this.Duyurular.UseVisualStyleBackColor = true;
             this.Duyurular.Click += new System.EventHandler(this.Duyurular_Click);
             // 
-            // button4
+            // gorusoneri
             // 
-            this.button4.Location = new System.Drawing.Point(210, 180);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(114, 29);
-            this.button4.TabIndex = 8;
-            this.button4.Text = "gorusoneri";
-            this.button4.UseVisualStyleBackColor = true;
+            this.gorusoneri.Location = new System.Drawing.Point(210, 180);
+            this.gorusoneri.Name = "gorusoneri";
+            this.gorusoneri.Size = new System.Drawing.Size(109, 41);
+            this.gorusoneri.TabIndex = 8;
+            this.gorusoneri.Text = "gorusoneri";
+            this.gorusoneri.UseVisualStyleBackColor = true;
+            this.gorusoneri.Click += new System.EventHandler(this.gorusoneri_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.gorusoneri);
             this.Controls.Add(this.Duyurular);
             this.Controls.Add(this.islem);
             this.Controls.Add(this.button3);
@@ -189,7 +190,7 @@ namespace hastane_deneme_1
         private System.Windows.Forms.Button islem;
         private System.Windows.Forms.Button hemsire_button;
         private Button Duyurular;
-        private Button button4;
+        private Button gorusoneri;
     }
 }
 

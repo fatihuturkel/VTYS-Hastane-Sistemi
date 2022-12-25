@@ -70,6 +70,7 @@
             this.label1.TabIndex = 72;
             this.label1.Text = "Maaş:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.UseWaitCursor = true;
             // 
             // Listele
             // 
@@ -79,6 +80,8 @@
             this.Listele.TabIndex = 71;
             this.Listele.Text = "Listele";
             this.Listele.UseVisualStyleBackColor = true;
+            this.Listele.UseWaitCursor = true;
+            this.Listele.Click += new System.EventHandler(this.Listele_Click);
             // 
             // Güncelle
             // 
@@ -88,6 +91,7 @@
             this.Güncelle.TabIndex = 70;
             this.Güncelle.Text = "Güncelle";
             this.Güncelle.UseVisualStyleBackColor = true;
+            this.Güncelle.UseWaitCursor = true;
             this.Güncelle.Click += new System.EventHandler(this.Güncelle_Click);
             // 
             // Sil
@@ -98,6 +102,8 @@
             this.Sil.TabIndex = 69;
             this.Sil.Text = "Sil";
             this.Sil.UseVisualStyleBackColor = true;
+            this.Sil.UseWaitCursor = true;
+            this.Sil.Click += new System.EventHandler(this.Sil_Click);
             // 
             // ekle
             // 
@@ -107,6 +113,7 @@
             this.ekle.TabIndex = 68;
             this.ekle.Text = "Ekle";
             this.ekle.UseVisualStyleBackColor = true;
+            this.ekle.UseWaitCursor = true;
             this.ekle.Click += new System.EventHandler(this.ekle_Click);
             // 
             // label5
@@ -118,6 +125,7 @@
             this.label5.TabIndex = 67;
             this.label5.Text = "Pozisyon:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label5.UseWaitCursor = true;
             // 
             // label4
             // 
@@ -128,6 +136,7 @@
             this.label4.TabIndex = 66;
             this.label4.Text = "Telefon Numarası:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label4.UseWaitCursor = true;
             // 
             // label3
             // 
@@ -138,6 +147,7 @@
             this.label3.TabIndex = 65;
             this.label3.Text = "Cinsiyet:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label3.UseWaitCursor = true;
             // 
             // soyisim_label
             // 
@@ -148,6 +158,7 @@
             this.soyisim_label.TabIndex = 64;
             this.soyisim_label.Text = "Soyisim:";
             this.soyisim_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.soyisim_label.UseWaitCursor = true;
             // 
             // tcNo_label
             // 
@@ -158,6 +169,7 @@
             this.tcNo_label.TabIndex = 63;
             this.tcNo_label.Text = "TC NO:";
             this.tcNo_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.tcNo_label.UseWaitCursor = true;
             // 
             // ilacid
             // 
@@ -168,6 +180,7 @@
             this.ilacid.TabIndex = 62;
             this.ilacid.Text = "Doğum Tarihi:";
             this.ilacid.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ilacid.UseWaitCursor = true;
             // 
             // isim_label
             // 
@@ -178,6 +191,7 @@
             this.isim_label.TabIndex = 61;
             this.isim_label.Text = "İsim:";
             this.isim_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.isim_label.UseWaitCursor = true;
             // 
             // pozisyon_textBox
             // 
@@ -224,6 +238,7 @@
             this.Tc_textBox.Name = "Tc_textBox";
             this.Tc_textBox.Size = new System.Drawing.Size(148, 28);
             this.Tc_textBox.TabIndex = 56;
+            this.Tc_textBox.UseWaitCursor = true;
             // 
             // soyisim_textBox
             // 
@@ -232,6 +247,7 @@
             this.soyisim_textBox.Name = "soyisim_textBox";
             this.soyisim_textBox.Size = new System.Drawing.Size(148, 28);
             this.soyisim_textBox.TabIndex = 55;
+            this.soyisim_textBox.UseWaitCursor = true;
             // 
             // isim_textBox
             // 
@@ -240,6 +256,7 @@
             this.isim_textBox.Name = "isim_textBox";
             this.isim_textBox.Size = new System.Drawing.Size(148, 28);
             this.isim_textBox.TabIndex = 54;
+            this.isim_textBox.UseWaitCursor = true;
             // 
             // dataGridView1
             // 
@@ -252,6 +269,7 @@
             this.dataGridView1.RowTemplate.Height = 28;
             this.dataGridView1.Size = new System.Drawing.Size(1271, 232);
             this.dataGridView1.TabIndex = 53;
+            this.dataGridView1.UseWaitCursor = true;
             // 
             // Ara
             // 
@@ -261,6 +279,8 @@
             this.Ara.TabIndex = 74;
             this.Ara.Text = "Ara";
             this.Ara.UseVisualStyleBackColor = true;
+            this.Ara.UseWaitCursor = true;
+            this.Ara.Click += new System.EventHandler(this.Ara_Click);
             // 
             // Doktor
             // 

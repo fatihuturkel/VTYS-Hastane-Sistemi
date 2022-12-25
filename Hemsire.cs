@@ -76,8 +76,8 @@ namespace hastane_deneme_1
 
         private void Sil_Click(object sender, EventArgs e)
         {
-            // delete from hemsire where kisiid = (select kisiid from kisi where tcno = @tcno)
 
+            //checking tc number
             if (Tc_textBox.Text.Length != 11)
             {
                 MessageBox.Show("TC Kimlik Numarası 11 haneli olmalıdır.");
@@ -91,6 +91,7 @@ namespace hastane_deneme_1
                 }
                 else
                 {
+                    // delete from hemsire where kisiid = (select kisiid from kisi where tcno = @tcno)
                     NpgsqlCommand sil = new NpgsqlCommand("delete from hemsire where kisiid = (select kisiid from kisi where tcno = @tcno)", baglanti);
                     sil.Parameters.AddWithValue("@tcno", Tc_textBox.Text);
                     baglanti.Open();
@@ -110,7 +111,6 @@ namespace hastane_deneme_1
             da.Fill(dt);
             dataGridView1.DataSource = dt;
             baglanti.Close();
-
         }
 
         private void Güncelle_Click(object sender, EventArgs e)
@@ -138,6 +138,7 @@ namespace hastane_deneme_1
                     baglanti.Open();
                     updatekisi.ExecuteNonQuery();
                     baglanti.Close();
+                    
                     //update hemsire where hemsire.kisiid = (select kisiid from kisi where tcno = @tcno)
                     NpgsqlCommand updatehemsire = new NpgsqlCommand("update hemsire set pozisyon=@pozisyon,maas=@maas where hemsire.kisiid = (select kisiid from kisi where tcno = @tcno)", baglanti);
                     updatehemsire.Parameters.AddWithValue("@pozisyon", pozisyon_textBox.Text);
@@ -153,7 +154,7 @@ namespace hastane_deneme_1
 
         private void Ara_Click(object sender, EventArgs e)
         {
-            //list a nurse to datagrid where  inner join hemsire on kisi.kisiid=hemsire.kisiid
+            //check tc no
             if (Tc_textBox.Text.Length != 11)
             {
                 MessageBox.Show("TC Kimlik Numarası 11 haneli olmalıdır.");
@@ -167,6 +168,7 @@ namespace hastane_deneme_1
                 }
                 else
                 {
+                    //list a nurse to datagrid where  inner join hemsire on kisi.kisiid=hemsire.kisiid
                     string ara = "select kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,hemsire.maas,hemsire.pozisyon from kisi inner join hemsire on kisi.kisiid=hemsire.kisiid where tcno=@tcno";
                     NpgsqlDataAdapter da = new NpgsqlDataAdapter(ara, baglanti);
                     da.SelectCommand.Parameters.AddWithValue("@tcno", Tc_textBox.Text);
@@ -175,8 +177,7 @@ namespace hastane_deneme_1
                     dataGridView1.DataSource = dt;
                     baglanti.Close();
                 }
-            }
-            
+            } 
         }
     }
 }

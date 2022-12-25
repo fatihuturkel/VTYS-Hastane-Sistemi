@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using Npgsql;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Npgsql;
 
 namespace hastane_deneme_1
 {
@@ -20,77 +14,68 @@ namespace hastane_deneme_1
 
         NpgsqlConnection baglanti = new NpgsqlConnection("Server=localhost;Port=5432;User Id=postgres;database=hastanedb;password=Asdasd159");
 
-        // doctor form , needed tasks are deleting updating and adding doctors to the database  
-
-        // add doctor to database
-        private void button1_Click(object sender, EventArgs e)
+        private void Güncelle_Click(object sender, EventArgs e)
         {
-            // check if tcNo_textbox is not 11 digits
-            if (tcno_textbox.Text.Length != 11)
+
+        }
+
+        private void ekle_Click(object sender, EventArgs e)
+        {
+            if (Tc_textBox.Text.Length != 11)
             {
                 MessageBox.Show("TC Kimlik Numarası 11 haneli olmalıdır.");
             }
             else
             {
                 // check if tcNo_textbox is not numeric
-                if (!tcno_textbox.Text.All(char.IsDigit))
+                if (!Tc_textBox.Text.All(char.IsDigit))
                 {
                     MessageBox.Show("TC Kimlik Numarası sadece rakamlardan oluşmalıdır.");
                 }
                 else
                 {
-                    // check if tcNo is already in the database
-                    NpgsqlCommand kontrol = new NpgsqlCommand("select * from doktor where tcno = @tcno", baglanti);
-                    kontrol.Parameters.AddWithValue("@tcno", tcno_textbox.Text);
                     baglanti.Open();
+
+                    string sql = "select * from kisi where tcno = @tcno";
+                    NpgsqlCommand kontrol = new NpgsqlCommand(sql, baglanti);
+                    kontrol.Parameters.AddWithValue("@tcno", Tc_textBox.Text);
                     NpgsqlDataReader oku = kontrol.ExecuteReader();
+
                     if (oku.Read())
                     {
-                        MessageBox.Show("Bu Tc No daha önce kayıt edilmiştir.");
                         baglanti.Close();
+                        NpgsqlCommand updatekisi = new NpgsqlCommand("update kisi set doktor=@doktor where tcno=@tcno", baglanti);
+                        updatekisi.Parameters.AddWithValue("@doktor", true);
+                        baglanti.Open();
+                        updatekisi.ExecuteNonQuery();
+                        baglanti.Close();
+                        MessageBox.Show("Doktor kaydı başarıyla eklendi.");
                     }
                     else
                     {
                         baglanti.Close();
-                        // insert doctor to database
-                        NpgsqlCommand ekle = new NpgsqlCommand("insert into doktor (isim,soyisim,tcNo,dogumTarihi,cinsiyet,telNo,doktor) values (@isim,@soyisim,@tcNo,@dogumTarihi,@cinsiyet,@telNo,@doktor)", baglanti);
-                        ekle.Parameters.AddWithValue("@isim", isim_textbox.Text);
-                        ekle.Parameters.AddWithValue("@soyisim", soyisim_textbox.Text);
-                        ekle.Parameters.AddWithValue("@tcNo", tcno_textbox.Text);
-                        ekle.Parameters.AddWithValue("@dogumTarihi", dogumTarihi_date.Value);
-                        ekle.Parameters.AddWithValue("@cinsiyet", cinsiyet_combobox.Text);
-                        ekle.Parameters.AddWithValue("@telNo", telNo_textbox.Text);
-                        ekle.Parameters.AddWithValue("@doktor", true);
+
+                        NpgsqlCommand eklekisi = new NpgsqlCommand("insert into kisi (isim,soyisim,tcno,dogumtarihi,cinsiyet,telno,doktor) values (@isim,@soyisim,@tcno,@dogumtarihi,@cinsiyet,@telno,@doktor)", baglanti);
+                        eklekisi.Parameters.AddWithValue("@isim", isim_textBox.Text);
+                        eklekisi.Parameters.AddWithValue("@soyisim", soyisim_textBox.Text);
+                        eklekisi.Parameters.AddWithValue("@tcno", Tc_textBox.Text);
+                        eklekisi.Parameters.AddWithValue("@dogumtarihi", dogumTarihi_date.Value);
+                        eklekisi.Parameters.AddWithValue("@cinsiyet", cinsiyet_combobox.Text);
+                        eklekisi.Parameters.AddWithValue("@telno", telNo_textbox.Text);
+                        eklekisi.Parameters.AddWithValue("@doktor", true);
                         baglanti.Open();
-                        ekle.ExecuteNonQuery();
+                        eklekisi.ExecuteNonQuery();
+
+                        NpgsqlCommand eklehemsire = new NpgsqlCommand("insert into doktor(kisiid,pozisyon,maas) values(currval('kisi_kisiid_seq'),@pozisyon,@maas)", baglanti);
+
+                        eklehemsire.Parameters.AddWithValue("@pozisyon", pozisyon_textBox.Text);
+                        eklehemsire.Parameters.AddWithValue("@maas", Int32.Parse(maas_textBox.Text));
+                        eklehemsire.ExecuteNonQuery();
                         baglanti.Close();
-                        MessageBox.Show("Doktor başarıyla eklendi.");
+                        MessageBox.Show("Doktor kaydı başarıyla eklendi.");
                     }
                 }
             }
-        }
-
-        /*private void button1_Click(object sender, EventArgs e)
-        {
-            // add doctor to the database 
-            // check if the doctor is already in the database 
-            // if not add it 
-            // if yes show a message box 
-        }*/
-        private void button2_Click(object sender, EventArgs e)
-        {
-            // delete doctor from the database 
-            // check if the doctor is in the database 
-            // if yes delete it 
-            // if not show a message box 
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            // update doctor in the database        
-            // check if the doctor is in the database 
-            // if yes update it 
-            // if not show a message box 
         }
     }
 }

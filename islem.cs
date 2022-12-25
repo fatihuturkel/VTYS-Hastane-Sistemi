@@ -38,7 +38,7 @@ namespace hastane_deneme_1
 
         private void Ekle_Click(object sender, EventArgs e)
         {
-            NpgsqlCommand ekle = new NpgsqlCommand("insert into envanter(aciklama,isim,ucret) values (@aciklama,@isim,@ucret)", baglanti);
+            NpgsqlCommand ekle = new NpgsqlCommand("insert into islem(aciklama,isim,ucret) values (@aciklama,@isim,@ucret)", baglanti);
             ekle.Parameters.AddWithValue("@aciklama", aciklama.Text);
             ekle.Parameters.AddWithValue("@isim", isim.Text);
             ekle.Parameters.AddWithValue("@ucret", int.Parse(ucret.Text));

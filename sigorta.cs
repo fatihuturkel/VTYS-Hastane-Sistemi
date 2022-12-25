@@ -18,23 +18,7 @@ namespace hastane_deneme_1
             InitializeComponent();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-            //asdasd asdasd
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
         NpgsqlConnection baglanti = new NpgsqlConnection("Server=localhost;Port=5432;User Id=postgres;database=hastanedb;password=Asdasd159");
-
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -47,6 +31,7 @@ namespace hastane_deneme_1
 
         }
 
+        //add
         private void button2_Click(object sender, EventArgs e)
         {
             // takes data from textboxes and inserts them to the database
@@ -59,25 +44,10 @@ namespace hastane_deneme_1
             baglanti.Open();
             ekle.ExecuteNonQuery();
             baglanti.Close();
-            MessageBox.Show("Sigorta eklendi.");
-            
+            MessageBox.Show("Sigorta eklendi."); 
         }
-
-        private void sigorta_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
+        //sil
         private void button3_Click(object sender, EventArgs e)
         {
             baglanti.Open();
@@ -85,29 +55,22 @@ namespace hastane_deneme_1
             komut2.Parameters.AddWithValue("@sigortaid",int.Parse(sigortaid.Text));
             komut2.ExecuteNonQuery();
             baglanti.Close();
-            MessageBox.Show("Sigorta silme işlemi başarılı bir şekilde gerçekleşti", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            MessageBox.Show("Sigorta silme işlemi başarılı bir şekilde gerçekleşti");
         }
 
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
+        //update
         private void button4_Click(object sender, EventArgs e)
         {
             baglanti.Open();
-            NpgsqlCommand komut3 = new NpgsqlCommand("update sigorta set  isim=@isim,telno=@telNo,adress=@adress,mersisno=@mersisno where sigortaid=@sigortaid", baglanti);
-            komut3.Parameters.AddWithValue("@isim",isim.Text);
-            komut3.Parameters.AddWithValue("@telno",telNo.Text);
-            komut3.Parameters.AddWithValue("@adress",adres.Text);
-            komut3.Parameters.AddWithValue("@mersisno",mersisNo.Text);
-            komut3.Parameters.AddWithValue("@sigortaid", int.Parse(sigortaid.Text));
-            komut3.ExecuteNonQuery();
-            MessageBox.Show("Sigorta güncelleme işlemi başarılı bir şekilde gerçekleşti", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            NpgsqlCommand update = new NpgsqlCommand("update sigorta set  isim=@isim,telno=@telNo,adress=@adress,mersisno=@mersisno where sigortaid=@sigortaid", baglanti);
+            update.Parameters.AddWithValue("@isim",isim.Text);
+            update.Parameters.AddWithValue("@telno",telNo.Text);
+            update.Parameters.AddWithValue("@adress",adres.Text);
+            update.Parameters.AddWithValue("@mersisno",mersisNo.Text);
+            update.Parameters.AddWithValue("@sigortaid", int.Parse(sigortaid.Text));
+            update.ExecuteNonQuery();
+            MessageBox.Show("Sigorta güncelleme işlemi başarılı bir şekilde gerçekleşti");
             baglanti.Close();
-
-
-
         }
     }
 }

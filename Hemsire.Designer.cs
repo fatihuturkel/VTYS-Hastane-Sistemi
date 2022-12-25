@@ -49,12 +49,13 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.maas_textBox = new System.Windows.Forms.TextBox();
+            this.Ara = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // Listele
             // 
-            this.Listele.Location = new System.Drawing.Point(402, 24);
+            this.Listele.Location = new System.Drawing.Point(1029, 24);
             this.Listele.Name = "Listele";
             this.Listele.Size = new System.Drawing.Size(86, 42);
             this.Listele.TabIndex = 50;
@@ -64,16 +65,17 @@
             // 
             // Güncelle
             // 
-            this.Güncelle.Location = new System.Drawing.Point(772, 24);
+            this.Güncelle.Location = new System.Drawing.Point(571, 24);
             this.Güncelle.Name = "Güncelle";
             this.Güncelle.Size = new System.Drawing.Size(101, 42);
             this.Güncelle.TabIndex = 49;
             this.Güncelle.Text = "Güncelle";
             this.Güncelle.UseVisualStyleBackColor = true;
+            this.Güncelle.Click += new System.EventHandler(this.Güncelle_Click);
             // 
             // Sil
             // 
-            this.Sil.Location = new System.Drawing.Point(659, 24);
+            this.Sil.Location = new System.Drawing.Point(713, 24);
             this.Sil.Name = "Sil";
             this.Sil.Size = new System.Drawing.Size(84, 42);
             this.Sil.TabIndex = 48;
@@ -83,7 +85,7 @@
             // 
             // ekle
             // 
-            this.ekle.Location = new System.Drawing.Point(533, 24);
+            this.ekle.Location = new System.Drawing.Point(439, 24);
             this.ekle.Name = "ekle";
             this.ekle.Size = new System.Drawing.Size(91, 42);
             this.ekle.TabIndex = 47;
@@ -232,7 +234,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(956, 166);
+            this.dataGridView1.Size = new System.Drawing.Size(1132, 242);
             this.dataGridView1.TabIndex = 32;
             // 
             // label1
@@ -253,11 +255,22 @@
             this.maas_textBox.TabIndex = 52;
             this.maas_textBox.UseWaitCursor = true;
             // 
+            // Ara
+            // 
+            this.Ara.Location = new System.Drawing.Point(859, 24);
+            this.Ara.Name = "Ara";
+            this.Ara.Size = new System.Drawing.Size(107, 42);
+            this.Ara.TabIndex = 53;
+            this.Ara.Text = "Ara";
+            this.Ara.UseVisualStyleBackColor = true;
+            this.Ara.Click += new System.EventHandler(this.Ara_Click);
+            // 
             // Hemsire
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(980, 556);
+            this.ClientSize = new System.Drawing.Size(1156, 632);
+            this.Controls.Add(this.Ara);
             this.Controls.Add(this.maas_textBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Listele);
@@ -310,5 +323,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox maas_textBox;
+        private System.Windows.Forms.Button Ara;
     }
 }

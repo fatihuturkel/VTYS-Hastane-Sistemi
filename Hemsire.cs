@@ -78,17 +78,33 @@ namespace hastane_deneme_1
         {
             // delete from hemsire where kisiid = (select kisiid from kisi where tcno = @tcno)
 
-            NpgsqlCommand sil = new NpgsqlCommand("delete from hemsire where kisiid = (select kisiid from kisi where tcno = @tcno)", baglanti);
-            sil.Parameters.AddWithValue("@tcno", Tc_textBox.Text);
-            baglanti.Open();
-            sil.ExecuteNonQuery();
-            baglanti.Close();
+            if (Tc_textBox.Text.Length != 11)
+            {
+                MessageBox.Show("TC Kimlik Numarası 11 haneli olmalıdır.");
+            }
+            else
+            {
+                // check if tcNo_textbox is not numeric
+                if (!Tc_textBox.Text.All(char.IsDigit))
+                {
+                    MessageBox.Show("TC Kimlik Numarası sadece rakamlardan oluşmalıdır.");
+                }
+                else
+                {
+                    NpgsqlCommand sil = new NpgsqlCommand("delete from hemsire where kisiid = (select kisiid from kisi where tcno = @tcno)", baglanti);
+                    sil.Parameters.AddWithValue("@tcno", Tc_textBox.Text);
+                    baglanti.Open();
+                    sil.ExecuteNonQuery();
+                    baglanti.Close();
+                    MessageBox.Show("Hemsire kaydı başarıyla silindi.");
+                }
+            }
         }
 
         private void Listele_Click(object sender, EventArgs e)
         {
             // list all nurses to datagrid
-            string listele = "select kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,hemsire.maas,hemsire,pozisyon from kisi inner join hemsire on kisi.kisiid=hemsire.kisiid";
+            string listele = "select kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,hemsire.maas,hemsire.pozisyon from kisi inner join hemsire on kisi.kisiid=hemsire.kisiid";
             NpgsqlDataAdapter da = new NpgsqlDataAdapter(listele, baglanti);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -96,6 +112,71 @@ namespace hastane_deneme_1
             baglanti.Close();
 
         }
-        
+
+        private void Güncelle_Click(object sender, EventArgs e)
+        {
+            if (Tc_textBox.Text.Length != 11)
+            {
+                MessageBox.Show("TC Kimlik Numarası 11 haneli olmalıdır.");
+            }
+            else
+            {
+                // check if tcNo_textbox is not numeric
+                if (!Tc_textBox.Text.All(char.IsDigit))
+                {
+                    MessageBox.Show("TC Kimlik Numarası sadece rakamlardan oluşmalıdır.");
+                }
+                else
+                {
+                    NpgsqlCommand updatekisi = new NpgsqlCommand("update kisi set isim=@isim,soyisim=@soyisim,dogumtarihi=@dogumtarihi,cinsiyet=@cinsiyet,telno=@telno where tcno=@tcno", baglanti);
+                    updatekisi.Parameters.AddWithValue("@isim", isim_textBox.Text);
+                    updatekisi.Parameters.AddWithValue("@soyisim", soyisim_textBox.Text);
+                    updatekisi.Parameters.AddWithValue("@tcno", Tc_textBox.Text);
+                    updatekisi.Parameters.AddWithValue("@dogumtarihi", dogumTarihi_date.Value);
+                    updatekisi.Parameters.AddWithValue("@cinsiyet", cinsiyet_combobox.Text);
+                    updatekisi.Parameters.AddWithValue("@telno", telNo_textbox.Text);
+                    baglanti.Open();
+                    updatekisi.ExecuteNonQuery();
+                    baglanti.Close();
+                    //update hemsire where hemsire.kisiid = (select kisiid from kisi where tcno = @tcno)
+                    NpgsqlCommand updatehemsire = new NpgsqlCommand("update hemsire set pozisyon=@pozisyon,maas=@maas where hemsire.kisiid = (select kisiid from kisi where tcno = @tcno)", baglanti);
+                    updatehemsire.Parameters.AddWithValue("@pozisyon", pozisyon_textBox.Text);
+                    updatehemsire.Parameters.AddWithValue("@maas", Int32.Parse(maas_textBox.Text));
+                    updatehemsire.Parameters.AddWithValue("@tcno", Tc_textBox.Text);
+                    baglanti.Open();
+                    updatehemsire.ExecuteNonQuery();
+                    baglanti.Close();
+                    MessageBox.Show("Hemsire kaydı başarıyla güncellendi.");
+                }
+            }
+        }
+
+        private void Ara_Click(object sender, EventArgs e)
+        {
+            //list a nurse to datagrid where  inner join hemsire on kisi.kisiid=hemsire.kisiid
+            if (Tc_textBox.Text.Length != 11)
+            {
+                MessageBox.Show("TC Kimlik Numarası 11 haneli olmalıdır.");
+            }
+            else
+            {
+                // check if tcNo_textbox is not numeric
+                if (!Tc_textBox.Text.All(char.IsDigit))
+                {
+                    MessageBox.Show("TC Kimlik Numarası sadece rakamlardan oluşmalıdır.");
+                }
+                else
+                {
+                    string ara = "select kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,hemsire.maas,hemsire.pozisyon from kisi inner join hemsire on kisi.kisiid=hemsire.kisiid where tcno=@tcno";
+                    NpgsqlDataAdapter da = new NpgsqlDataAdapter(ara, baglanti);
+                    da.SelectCommand.Parameters.AddWithValue("@tcno", Tc_textBox.Text);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    dataGridView1.DataSource = dt;
+                    baglanti.Close();
+                }
+            }
+            
+        }
     }
 }

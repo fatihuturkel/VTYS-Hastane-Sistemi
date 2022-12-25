@@ -31,7 +31,7 @@ namespace hastane_deneme_1
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.doktor_button = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.ilac = new System.Windows.Forms.Button();
             this.hasta = new System.Windows.Forms.Button();
@@ -41,15 +41,15 @@ namespace hastane_deneme_1
             this.hemsire_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // doktor_button
             // 
-            this.button1.Location = new System.Drawing.Point(36, 31);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(116, 32);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.doktor_button.Location = new System.Drawing.Point(295, 200);
+            this.doktor_button.Name = "doktor_button";
+            this.doktor_button.Size = new System.Drawing.Size(116, 32);
+            this.doktor_button.TabIndex = 0;
+            this.doktor_button.Text = "Doktor";
+            this.doktor_button.UseVisualStyleBackColor = true;
+            this.doktor_button.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -80,7 +80,7 @@ namespace hastane_deneme_1
             this.hasta.Name = "hasta";
             this.hasta.Size = new System.Drawing.Size(113, 30);
             this.hasta.TabIndex = 3;
-            this.hasta.Text = "hasta";
+            this.hasta.Text = "Hasta";
             this.hasta.UseVisualStyleBackColor = true;
             this.hasta.Click += new System.EventHandler(this.hasta_Click);
             // 
@@ -108,13 +108,14 @@ namespace hastane_deneme_1
             // 
             // islem
             // 
-            this.islem.Location = new System.Drawing.Point(251, 39);
+            this.islem.Location = new System.Drawing.Point(304, 31);
             this.islem.Name = "islem";
             this.islem.Size = new System.Drawing.Size(107, 40);
             this.islem.TabIndex = 6;
             this.islem.Text = "islem";
             this.islem.UseVisualStyleBackColor = true;
             this.islem.Click += new System.EventHandler(this.islem_Click);
+            // 
             // hemsire_button
             // 
             this.hemsire_button.Location = new System.Drawing.Point(173, 202);
@@ -130,16 +131,15 @@ namespace hastane_deneme_1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(900, 562);
-            this.Controls.Add(this.islem);
             this.ClientSize = new System.Drawing.Size(711, 360);
+            this.Controls.Add(this.islem);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.hemsire_button);
             this.Controls.Add(this.envanter);
             this.Controls.Add(this.hasta);
             this.Controls.Add(this.ilac);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.doktor_button);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -154,7 +154,7 @@ namespace hastane_deneme_1
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button doktor_button;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button ilac;
         private System.Windows.Forms.Button hasta;

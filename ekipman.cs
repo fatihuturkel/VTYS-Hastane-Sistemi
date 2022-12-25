@@ -1,19 +1,12 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace hastane_deneme_1
 {
     public partial class ekipman : Form
-        
+
     {
         NpgsqlConnection baglanti = new NpgsqlConnection("Server=localhost;Port=5432;User Id=postgres;database=hastanedb;password=Asdasd159");
         public ekipman()
@@ -21,19 +14,15 @@ namespace hastane_deneme_1
             InitializeComponent();
         }
 
-        private void ekipman_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void Listele_Click(object sender, EventArgs e)
         {
-            string sorgu = "select* from ekipman";
-
-            NpgsqlDataAdapter da = new NpgsqlDataAdapter(sorgu, baglanti);
-            DataSet ds = new DataSet();
-            da.Fill(ds);
-            dataGridView1.DataSource = ds.Tables[0];
+            // listele
+            baglanti.Open();
+            NpgsqlDataAdapter da = new NpgsqlDataAdapter("select * from ekipman", baglanti);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            dataGridView1.DataSource = dt;
+            baglanti.Close();
         }
 
         private void Ekle_Click(object sender, EventArgs e)
@@ -43,7 +32,7 @@ namespace hastane_deneme_1
             ekle.Parameters.AddWithValue("@modelnumarasi", modelnumarasi.Text);
             ekle.Parameters.AddWithValue("@bakimsikligi", bakimsikligi.Text);
             ekle.Parameters.AddWithValue("@uretici", uretici.Text);
-            ekle.Parameters.AddWithValue("@urunid",int.Parse( urunid.Text));
+            ekle.Parameters.AddWithValue("@urunid", int.Parse(urunid.Text));
             baglanti.Open();
             ekle.ExecuteNonQuery();
             baglanti.Close();
@@ -64,18 +53,37 @@ namespace hastane_deneme_1
         {
             baglanti.Open();
             NpgsqlCommand komut3 = new NpgsqlCommand("update ekipman set isim=@isim,modelnumarasi=@modelnumarasi,bakimsikligi=@bakimsikligi uretici=@uretici, urunid=@urunid where ekipmanid=@ekipmanid", baglanti);
-            
+
             komut3.Parameters.AddWithValue("@isim", isim.Text);
             komut3.Parameters.AddWithValue("@modelnumarasi", modelnumarasi.Text);
             komut3.Parameters.AddWithValue("@bakimsikligi", bakimsikligi.Text);
             komut3.Parameters.AddWithValue("@uretici", uretici.Text);
             komut3.Parameters.AddWithValue("@urunid", int.Parse(urunid.Text));
-            
+
             komut3.Parameters.AddWithValue("@ekipmanid", int.Parse(ekipmanid.Text));
             komut3.ExecuteNonQuery();
             MessageBox.Show(" Ekipman güncelleme işlemi başarılı bir şekilde gerçekleşti", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             baglanti.Close();
 
+        }
+
+        private void Ara_Click(object sender, EventArgs e)
+        {
+            // check ekipman is empty
+            if (ekipmanid.Text == "")
+            {
+                MessageBox.Show("Lütfen aramak istediğiniz ekipman id'sini giriniz.");
+            }
+            else
+            {
+                // get data from database and show it in datagridview, where ekipmanid
+                baglanti.Open();
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter("select * from ekipman where ekipmanid=" + ekipmanid.Text, baglanti);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                dataGridView1.DataSource = dt;
+                baglanti.Close();
+            }
         }
     }
 }

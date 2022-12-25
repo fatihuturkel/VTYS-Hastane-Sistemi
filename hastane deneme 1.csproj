@@ -156,6 +156,12 @@
     <Compile Include="sigorta.Designer.cs">
       <DependentUpon>sigorta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tedavi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tedavi.Designer.cs">
+      <DependentUpon>Tedavi.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Doktor.resx">
       <DependentUpon>Doktor.cs</DependentUpon>
     </EmbeddedResource>
@@ -194,6 +200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="sigorta.resx">
       <DependentUpon>sigorta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tedavi.resx">
+      <DependentUpon>Tedavi.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

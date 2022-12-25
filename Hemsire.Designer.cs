@@ -234,7 +234,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(1219, 242);
+            this.dataGridView1.Size = new System.Drawing.Size(1290, 242);
             this.dataGridView1.TabIndex = 32;
             // 
             // label1
@@ -269,7 +269,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1243, 632);
+            this.ClientSize = new System.Drawing.Size(1314, 632);
             this.Controls.Add(this.Ara);
             this.Controls.Add(this.maas_textBox);
             this.Controls.Add(this.label1);

@@ -1,17 +1,11 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace hastane_deneme_1
 {
-    
+
     public partial class envanter : Form
     {
         NpgsqlConnection baglanti = new NpgsqlConnection("Server=localhost;Port=5432;User Id=postgres;database=hastanedb;password=Asdasd159");
@@ -34,7 +28,7 @@ namespace hastane_deneme_1
             da.Fill(ds);
             dataGridView1.DataSource = ds.Tables[0];
         }
-        
+
         private void button2_Click(object sender, EventArgs e)
         {
             NpgsqlCommand ekle = new NpgsqlCommand("insert into envanter(ucret,tedarikci,adet) values (@ucret,@tedarikci,@adet)", baglanti);
@@ -65,12 +59,31 @@ namespace hastane_deneme_1
             komut3.Parameters.AddWithValue("@ucret", int.Parse(ucret.Text));
             komut3.Parameters.AddWithValue("@tedarikci", tedarikci.Text);
             komut3.Parameters.AddWithValue("@adet", int.Parse(adet.Text));
-           
+
             komut3.Parameters.AddWithValue("@urunid", int.Parse(urunid.Text));
             komut3.ExecuteNonQuery();
             MessageBox.Show("Envanter güncelleme işlemi başarılı bir şekilde gerçekleşti", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             baglanti.Close();
 
+        }
+
+        private void Ara_Click(object sender, EventArgs e)
+        {
+            // check urunid is empty
+            if (urunid.Text == "")
+            {
+                MessageBox.Show("Lütfen aramak istediğiniz urun id'sini giriniz.");
+            }
+            else
+            {
+                string ara = "select * from envanter inner join ekipman on ekipman.urunid=envanter.urunid where envanter.urunid=@urunid";
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(ara, baglanti);
+                da.SelectCommand.Parameters.AddWithValue("@urunid", int.Parse(urunid.Text));
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                dataGridView1.DataSource = dt;
+                baglanti.Close();
+            }
         }
     }
 }

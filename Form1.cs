@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace hastane_deneme_1
@@ -71,6 +64,18 @@ namespace hastane_deneme_1
         {
             Randevu randevu = new Randevu();
             randevu.Show();
+        }
+
+        private void Tedavi_button_Click(object sender, EventArgs e)
+        {
+            Tedavi tedavi = new Tedavi();
+            tedavi.Show();
+        }
+
+        private void envanter_Click(object sender, EventArgs e)
+        {
+            envanter envanter = new envanter();
+            envanter.Show();
         }
     }
 }

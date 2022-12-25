@@ -173,7 +173,6 @@ namespace hastane_deneme_1
         private void Listele_Click(object sender, EventArgs e)
         {
             //list all doktorcs to datagrid
-
             string listele = "select kisi.kisiid,kisi.isim,kisi.soyisim,kisi.tcno,kisi.dogumtarihi,kisi.cinsiyet,kisi.telno,doktor.pozisyon,doktor.maas from kisi inner join doktor on kisi.kisiid=doktor.kisiid";
             NpgsqlDataAdapter da = new NpgsqlDataAdapter(listele, baglanti);
             DataTable dt = new DataTable();

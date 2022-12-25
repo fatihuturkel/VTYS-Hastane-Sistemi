@@ -72,5 +72,12 @@ namespace hastane_deneme_1
             islem islem = new islem();
             islem.Show();
         }
+
+        private void Duyurular_Click(object sender, EventArgs e)
+        {
+            duyurular duyurular = new duyurular();
+            duyurular.Show();
+        }
+        
     }
 }

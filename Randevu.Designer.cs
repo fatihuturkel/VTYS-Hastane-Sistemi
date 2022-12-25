@@ -130,8 +130,8 @@
             // 
             // saat_datetimepicker
             // 
-            this.saat_datetimepicker.CustomFormat = "";
-            this.saat_datetimepicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.saat_datetimepicker.CustomFormat = "HH:mm";
+            this.saat_datetimepicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.saat_datetimepicker.Location = new System.Drawing.Point(207, 245);
             this.saat_datetimepicker.Name = "saat_datetimepicker";
             this.saat_datetimepicker.Size = new System.Drawing.Size(180, 30);
@@ -168,6 +168,7 @@
             this.Güncelle.Text = "Güncelle";
             this.Güncelle.UseVisualStyleBackColor = true;
             this.Güncelle.UseWaitCursor = true;
+            this.Güncelle.Click += new System.EventHandler(this.Güncelle_Click);
             // 
             // Sil
             // 
@@ -178,6 +179,7 @@
             this.Sil.Text = "Sil";
             this.Sil.UseVisualStyleBackColor = true;
             this.Sil.UseWaitCursor = true;
+            this.Sil.Click += new System.EventHandler(this.Sil_Click);
             // 
             // Ara
             // 
@@ -188,6 +190,7 @@
             this.Ara.Text = "Ara";
             this.Ara.UseVisualStyleBackColor = true;
             this.Ara.UseWaitCursor = true;
+            this.Ara.Click += new System.EventHandler(this.Ara_Click);
             // 
             // Listele
             // 
@@ -198,6 +201,7 @@
             this.Listele.Text = "Listele";
             this.Listele.UseVisualStyleBackColor = true;
             this.Listele.UseWaitCursor = true;
+            this.Listele.Click += new System.EventHandler(this.Listele_Click);
             // 
             // Randevu
             // 

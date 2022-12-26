@@ -17,6 +17,96 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: count_randevu_doktor(integer); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.count_randevu_doktor(kisiid integer) RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+  RETURN (SELECT COUNT(*) FROM randevu WHERE doktorid = kisiid);
+END;
+$$;
+
+
+ALTER FUNCTION public.count_randevu_doktor(kisiid integer) OWNER TO postgres;
+
+--
+-- Name: count_randevu_for_hasta(integer); Type: PROCEDURE; Schema: public; Owner: postgres
+--
+
+CREATE PROCEDURE public.count_randevu_for_hasta(IN kisiid integer)
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+  SELECT count_randevu_hasta(kisiid);
+END;
+$$;
+
+
+ALTER PROCEDURE public.count_randevu_for_hasta(IN kisiid integer) OWNER TO postgres;
+
+--
+-- Name: count_randevu_hasta(integer); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.count_randevu_hasta(kisiid integer) RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+  RETURN (SELECT COUNT(*) FROM randevu WHERE hastaid = kisiid);
+END;
+$$;
+
+
+ALTER FUNCTION public.count_randevu_hasta(kisiid integer) OWNER TO postgres;
+
+--
+-- Name: count_tedavi_doktor(integer); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.count_tedavi_doktor(kisiid integer) RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+  RETURN (SELECT COUNT(*) FROM tedavi WHERE doktorid = kisiid);
+END;
+$$;
+
+
+ALTER FUNCTION public.count_tedavi_doktor(kisiid integer) OWNER TO postgres;
+
+--
+-- Name: count_tedavi_hasta(integer); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.count_tedavi_hasta(kisiid integer) RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+  RETURN (SELECT COUNT(*) FROM tedavi WHERE hastaid = kisiid);
+END;
+$$;
+
+
+ALTER FUNCTION public.count_tedavi_hasta(kisiid integer) OWNER TO postgres;
+
+--
+-- Name: hastatoplamodeme(integer); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.hastatoplamodeme(kisiid integer) RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+  RETURN (SELECT SUM(ucret) FROM tedavi WHERE hastaid = kisiid);
+END;
+$$;
+
+
+ALTER FUNCTION public.hastatoplamodeme(kisiid integer) OWNER TO postgres;
+
+--
 -- Name: urunFiyatDegisimKaydi(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -45,27 +135,60 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.doktor (
-    "kisi_ID" integer NOT NULL,
+    kisiid integer NOT NULL,
     pozisyon character varying(40) NOT NULL,
-    maas double precision NOT NULL,
-    "poliklinik_ID" integer NOT NULL
+    maas integer NOT NULL
 );
 
 
 ALTER TABLE public.doktor OWNER TO postgres;
 
 --
+-- Name: duyurular; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.duyurular (
+    duyuruid integer NOT NULL,
+    baslik character varying(40) NOT NULL,
+    aciklama text NOT NULL
+);
+
+
+ALTER TABLE public.duyurular OWNER TO postgres;
+
+--
+-- Name: duyurular_duyuruid_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.duyurular_duyuruid_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.duyurular_duyuruid_seq OWNER TO postgres;
+
+--
+-- Name: duyurular_duyuruid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.duyurular_duyuruid_seq OWNED BY public.duyurular.duyuruid;
+
+
+--
 -- Name: ekipman; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ekipman (
-    "ekipman_ID" integer NOT NULL,
+    ekipmanid integer NOT NULL,
     isim character varying(40) NOT NULL,
-    "modelNumarasi" character varying(40) NOT NULL,
-    ucret double precision NOT NULL,
-    "bakimSikligi" text NOT NULL,
+    modelnumarasi character varying(40) NOT NULL,
+    bakimsikligi text NOT NULL,
     uretici character varying(40) NOT NULL,
-    "urun_ID" integer NOT NULL
+    urunid integer NOT NULL
 );
 
 
@@ -90,7 +213,7 @@ ALTER TABLE public."ekipman_ekipman_ID_seq" OWNER TO postgres;
 -- Name: ekipman_ekipman_ID_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public."ekipman_ekipman_ID_seq" OWNED BY public.ekipman."ekipman_ID";
+ALTER SEQUENCE public."ekipman_ekipman_ID_seq" OWNED BY public.ekipman.ekipmanid;
 
 
 --
@@ -98,7 +221,7 @@ ALTER SEQUENCE public."ekipman_ekipman_ID_seq" OWNED BY public.ekipman."ekipman_
 --
 
 CREATE TABLE public.envanter (
-    "urun_ID" integer NOT NULL,
+    urunid integer NOT NULL,
     adet integer NOT NULL,
     tedarikci character varying(40) NOT NULL,
     ucret real NOT NULL
@@ -126,7 +249,44 @@ ALTER TABLE public."envanter_urun_ID_seq" OWNER TO postgres;
 -- Name: envanter_urun_ID_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public."envanter_urun_ID_seq" OWNED BY public.envanter."urun_ID";
+ALTER SEQUENCE public."envanter_urun_ID_seq" OWNED BY public.envanter.urunid;
+
+
+--
+-- Name: gorusoneri; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.gorusoneri (
+    gorusoneriid integer NOT NULL,
+    isim character varying(40) NOT NULL,
+    soyisim character varying(40) NOT NULL,
+    baslik character varying(40) NOT NULL,
+    aciklama text NOT NULL
+);
+
+
+ALTER TABLE public.gorusoneri OWNER TO postgres;
+
+--
+-- Name: gorusoneri_gorusoneriid_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.gorusoneri_gorusoneriid_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.gorusoneri_gorusoneriid_seq OWNER TO postgres;
+
+--
+-- Name: gorusoneri_gorusoneriid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.gorusoneri_gorusoneriid_seq OWNED BY public.gorusoneri.gorusoneriid;
 
 
 --
@@ -134,8 +294,8 @@ ALTER SEQUENCE public."envanter_urun_ID_seq" OWNED BY public.envanter."urun_ID";
 --
 
 CREATE TABLE public.hasta (
-    "kisi_ID" integer NOT NULL,
-    "sigorta_ID" integer NOT NULL
+    kisiid integer NOT NULL,
+    sigortaid integer
 );
 
 
@@ -146,9 +306,9 @@ ALTER TABLE public.hasta OWNER TO postgres;
 --
 
 CREATE TABLE public.hemsire (
-    "kisi_ID" integer NOT NULL,
+    kisiid integer NOT NULL,
     pozisyon character varying(40) NOT NULL,
-    maas double precision NOT NULL
+    maas integer NOT NULL
 );
 
 
@@ -195,7 +355,7 @@ ALTER SEQUENCE public."ilac_ilac_ID_seq" OWNED BY public.ilac.ilacid;
 --
 
 CREATE TABLE public.islem (
-    "islem_ID" integer NOT NULL,
+    islemid integer NOT NULL,
     isim character varying(20) NOT NULL,
     ucret double precision NOT NULL,
     aciklama text NOT NULL
@@ -205,22 +365,10 @@ CREATE TABLE public.islem (
 ALTER TABLE public.islem OWNER TO postgres;
 
 --
--- Name: islemEkipman; Type: TABLE; Schema: public; Owner: postgres
+-- Name: islem_islemid_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public."islemEkipman" (
-    "islem_ID" integer NOT NULL,
-    "ekipman_ID" integer NOT NULL
-);
-
-
-ALTER TABLE public."islemEkipman" OWNER TO postgres;
-
---
--- Name: islem_islem_ID_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."islem_islem_ID_seq"
+CREATE SEQUENCE public.islem_islemid_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -229,41 +377,53 @@ CREATE SEQUENCE public."islem_islem_ID_seq"
     CACHE 1;
 
 
-ALTER TABLE public."islem_islem_ID_seq" OWNER TO postgres;
+ALTER TABLE public.islem_islemid_seq OWNER TO postgres;
 
 --
--- Name: islem_islem_ID_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: islem_islemid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public."islem_islem_ID_seq" OWNED BY public.islem."islem_ID";
+ALTER SEQUENCE public.islem_islemid_seq OWNED BY public.islem.islemid;
 
+
+--
+-- Name: islemekipman; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.islemekipman (
+    islemid integer NOT NULL,
+    ekipmanid integer NOT NULL
+);
+
+
+ALTER TABLE public.islemekipman OWNER TO postgres;
 
 --
 -- Name: kisi; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.kisi (
-    "kisi_ID" integer NOT NULL,
+    kisiid integer NOT NULL,
     isim character varying(20) NOT NULL,
     soyisim character varying(20) NOT NULL,
-    "tcNo" character varying(11) NOT NULL,
-    "dogumTarihi" date NOT NULL,
-    cinsiyet character varying(5) NOT NULL,
-    "telNo" character varying(11) NOT NULL,
-    doktor boolean NOT NULL,
-    hasta boolean NOT NULL,
-    yonetim boolean NOT NULL,
-    hemsire boolean NOT NULL
+    tcno character varying(11) NOT NULL,
+    dogumtarihi date NOT NULL,
+    cinsiyet character varying(10) NOT NULL,
+    telno character varying(15) NOT NULL,
+    doktor boolean,
+    hasta boolean,
+    yonetim boolean,
+    hemsire boolean
 );
 
 
 ALTER TABLE public.kisi OWNER TO postgres;
 
 --
--- Name: kisi_kisi_ID_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: kisi_kisiid_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public."kisi_kisi_ID_seq"
+CREATE SEQUENCE public.kisi_kisiid_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -272,51 +432,13 @@ CREATE SEQUENCE public."kisi_kisi_ID_seq"
     CACHE 1;
 
 
-ALTER TABLE public."kisi_kisi_ID_seq" OWNER TO postgres;
+ALTER TABLE public.kisi_kisiid_seq OWNER TO postgres;
 
 --
--- Name: kisi_kisi_ID_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: kisi_kisiid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public."kisi_kisi_ID_seq" OWNED BY public.kisi."kisi_ID";
-
-
---
--- Name: poliklinik; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.poliklinik (
-    "poliklinik_ID" integer NOT NULL,
-    isim character varying(40) NOT NULL,
-    "telNo" character varying(15) NOT NULL,
-    adres character varying(40) NOT NULL,
-    "acıklama" text,
-    yonetici integer NOT NULL
-);
-
-
-ALTER TABLE public.poliklinik OWNER TO postgres;
-
---
--- Name: poliklinik_poliklinik_ID_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."poliklinik_poliklinik_ID_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public."poliklinik_poliklinik_ID_seq" OWNER TO postgres;
-
---
--- Name: poliklinik_poliklinik_ID_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."poliklinik_poliklinik_ID_seq" OWNED BY public.poliklinik."poliklinik_ID";
+ALTER SEQUENCE public.kisi_kisiid_seq OWNED BY public.kisi.kisiid;
 
 
 --
@@ -324,9 +446,9 @@ ALTER SEQUENCE public."poliklinik_poliklinik_ID_seq" OWNED BY public.poliklinik.
 --
 
 CREATE TABLE public.randevu (
-    "randevu_ID" integer NOT NULL,
-    "doktor_ID" integer NOT NULL,
-    "hasta_ID" integer NOT NULL,
+    randevuid integer NOT NULL,
+    doktorid integer NOT NULL,
+    hastaid integer NOT NULL,
     tarih date NOT NULL,
     saat time without time zone NOT NULL
 );
@@ -353,7 +475,7 @@ ALTER TABLE public."randevu_randevu_ID_seq" OWNER TO postgres;
 -- Name: randevu_randevu_ID_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public."randevu_randevu_ID_seq" OWNED BY public.randevu."randevu_ID";
+ALTER SEQUENCE public."randevu_randevu_ID_seq" OWNED BY public.randevu.randevuid;
 
 
 --
@@ -361,33 +483,21 @@ ALTER SEQUENCE public."randevu_randevu_ID_seq" OWNED BY public.randevu."randevu_
 --
 
 CREATE TABLE public.recete (
-    "recete_ID" integer NOT NULL,
+    receteid integer NOT NULL,
     doz text NOT NULL,
-    "kullanimSikligi" text NOT NULL,
-    "ekAciklama" text NOT NULL,
-    "tedavi_ID" integer NOT NULL
+    kullanimsikligi text NOT NULL,
+    aciklama text NOT NULL,
+    tedaviid integer NOT NULL
 );
 
 
 ALTER TABLE public.recete OWNER TO postgres;
 
 --
--- Name: receteIlac; Type: TABLE; Schema: public; Owner: postgres
+-- Name: recete_receteid_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public."receteIlac" (
-    "recete_ID" integer NOT NULL,
-    "ilac_ID" integer NOT NULL
-);
-
-
-ALTER TABLE public."receteIlac" OWNER TO postgres;
-
---
--- Name: recete_recete_ID_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."recete_recete_ID_seq"
+CREATE SEQUENCE public.recete_receteid_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -396,14 +506,26 @@ CREATE SEQUENCE public."recete_recete_ID_seq"
     CACHE 1;
 
 
-ALTER TABLE public."recete_recete_ID_seq" OWNER TO postgres;
+ALTER TABLE public.recete_receteid_seq OWNER TO postgres;
 
 --
--- Name: recete_recete_ID_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: recete_receteid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public."recete_recete_ID_seq" OWNED BY public.recete."recete_ID";
+ALTER SEQUENCE public.recete_receteid_seq OWNED BY public.recete.receteid;
 
+
+--
+-- Name: receteilac; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.receteilac (
+    receteid integer NOT NULL,
+    ilacid integer NOT NULL
+);
+
+
+ALTER TABLE public.receteilac OWNER TO postgres;
 
 --
 -- Name: sigorta; Type: TABLE; Schema: public; Owner: postgres
@@ -447,46 +569,23 @@ ALTER SEQUENCE public."sigorta_sigorta_ID_seq" OWNED BY public.sigorta.sigortaid
 --
 
 CREATE TABLE public.tedavi (
-    "tedavi_ID" integer NOT NULL,
-    "doktor_ID" integer NOT NULL,
-    "hasta_ID" integer NOT NULL,
+    tedaviid integer NOT NULL,
+    doktorid integer NOT NULL,
+    hastaid integer NOT NULL,
     tarih date NOT NULL,
     aciklama text NOT NULL,
-    ucret double precision NOT NULL
+    ucret integer NOT NULL,
+    hemsireid integer
 );
 
 
 ALTER TABLE public.tedavi OWNER TO postgres;
 
 --
--- Name: tedaviHemsire; Type: TABLE; Schema: public; Owner: postgres
+-- Name: tedavi_tedaviid_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public."tedaviHemsire" (
-    "hemsire_ID" integer NOT NULL,
-    "tedavi_ID" integer NOT NULL
-);
-
-
-ALTER TABLE public."tedaviHemsire" OWNER TO postgres;
-
---
--- Name: tedaviIslem; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."tedaviIslem" (
-    "islem_ID" integer NOT NULL,
-    "tedavi_ID" integer NOT NULL
-);
-
-
-ALTER TABLE public."tedaviIslem" OWNER TO postgres;
-
---
--- Name: tedavi_tedavi_ID_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."tedavi_tedavi_ID_seq"
+CREATE SEQUENCE public.tedavi_tedaviid_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -495,29 +594,41 @@ CREATE SEQUENCE public."tedavi_tedavi_ID_seq"
     CACHE 1;
 
 
-ALTER TABLE public."tedavi_tedavi_ID_seq" OWNER TO postgres;
+ALTER TABLE public.tedavi_tedaviid_seq OWNER TO postgres;
 
 --
--- Name: tedavi_tedavi_ID_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: tedavi_tedaviid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public."tedavi_tedavi_ID_seq" OWNED BY public.tedavi."tedavi_ID";
+ALTER SEQUENCE public.tedavi_tedaviid_seq OWNED BY public.tedavi.tedaviid;
 
 
 --
--- Name: urunFiyatDegisim; Type: TABLE; Schema: public; Owner: postgres
+-- Name: tedaviislem; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public."urunFiyatDegisim" (
-    "urunFiyatDegisimi_ID" integer NOT NULL,
-    "urun_ID" integer NOT NULL,
+CREATE TABLE public.tedaviislem (
+    islemid integer NOT NULL,
+    tedaviid integer NOT NULL
+);
+
+
+ALTER TABLE public.tedaviislem OWNER TO postgres;
+
+--
+-- Name: urunfiyatdegisim; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.urunfiyatdegisim (
+    urunfiyatdegisimiid integer NOT NULL,
+    urunid integer NOT NULL,
     "eskiBirimFiyat" real NOT NULL,
     "yeniBirimFiyat" real NOT NULL,
     "degisiklilikTarihi" timestamp without time zone NOT NULL
 );
 
 
-ALTER TABLE public."urunFiyatDegisim" OWNER TO postgres;
+ALTER TABLE public.urunfiyatdegisim OWNER TO postgres;
 
 --
 -- Name: urunFiyatDegisim_urunFiyatDegisimi_ID_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -538,34 +649,35 @@ ALTER TABLE public."urunFiyatDegisim_urunFiyatDegisimi_ID_seq" OWNER TO postgres
 -- Name: urunFiyatDegisim_urunFiyatDegisimi_ID_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public."urunFiyatDegisim_urunFiyatDegisimi_ID_seq" OWNED BY public."urunFiyatDegisim"."urunFiyatDegisimi_ID";
+ALTER SEQUENCE public."urunFiyatDegisim_urunFiyatDegisimi_ID_seq" OWNED BY public.urunfiyatdegisim.urunfiyatdegisimiid;
 
 
 --
--- Name: yonetim; Type: TABLE; Schema: public; Owner: postgres
+-- Name: duyurular duyuruid; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.yonetim (
-    "kisi_ID" integer NOT NULL,
-    "pozisyon " character varying(20) NOT NULL,
-    maas double precision NOT NULL
-);
-
-
-ALTER TABLE public.yonetim OWNER TO postgres;
-
---
--- Name: ekipman ekipman_ID; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.ekipman ALTER COLUMN "ekipman_ID" SET DEFAULT nextval('public."ekipman_ekipman_ID_seq"'::regclass);
+ALTER TABLE ONLY public.duyurular ALTER COLUMN duyuruid SET DEFAULT nextval('public.duyurular_duyuruid_seq'::regclass);
 
 
 --
--- Name: envanter urun_ID; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: ekipman ekipmanid; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.envanter ALTER COLUMN "urun_ID" SET DEFAULT nextval('public."envanter_urun_ID_seq"'::regclass);
+ALTER TABLE ONLY public.ekipman ALTER COLUMN ekipmanid SET DEFAULT nextval('public."ekipman_ekipman_ID_seq"'::regclass);
+
+
+--
+-- Name: envanter urunid; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.envanter ALTER COLUMN urunid SET DEFAULT nextval('public."envanter_urun_ID_seq"'::regclass);
+
+
+--
+-- Name: gorusoneri gorusoneriid; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.gorusoneri ALTER COLUMN gorusoneriid SET DEFAULT nextval('public.gorusoneri_gorusoneriid_seq'::regclass);
 
 
 --
@@ -576,38 +688,31 @@ ALTER TABLE ONLY public.ilac ALTER COLUMN ilacid SET DEFAULT nextval('public."il
 
 
 --
--- Name: islem islem_ID; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: islem islemid; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.islem ALTER COLUMN "islem_ID" SET DEFAULT nextval('public."islem_islem_ID_seq"'::regclass);
-
-
---
--- Name: kisi kisi_ID; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.kisi ALTER COLUMN "kisi_ID" SET DEFAULT nextval('public."kisi_kisi_ID_seq"'::regclass);
+ALTER TABLE ONLY public.islem ALTER COLUMN islemid SET DEFAULT nextval('public.islem_islemid_seq'::regclass);
 
 
 --
--- Name: poliklinik poliklinik_ID; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: kisi kisiid; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.poliklinik ALTER COLUMN "poliklinik_ID" SET DEFAULT nextval('public."poliklinik_poliklinik_ID_seq"'::regclass);
-
-
---
--- Name: randevu randevu_ID; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.randevu ALTER COLUMN "randevu_ID" SET DEFAULT nextval('public."randevu_randevu_ID_seq"'::regclass);
+ALTER TABLE ONLY public.kisi ALTER COLUMN kisiid SET DEFAULT nextval('public.kisi_kisiid_seq'::regclass);
 
 
 --
--- Name: recete recete_ID; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: randevu randevuid; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.recete ALTER COLUMN "recete_ID" SET DEFAULT nextval('public."recete_recete_ID_seq"'::regclass);
+ALTER TABLE ONLY public.randevu ALTER COLUMN randevuid SET DEFAULT nextval('public."randevu_randevu_ID_seq"'::regclass);
+
+
+--
+-- Name: recete receteid; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.recete ALTER COLUMN receteid SET DEFAULT nextval('public.recete_receteid_seq'::regclass);
 
 
 --
@@ -618,21 +723,29 @@ ALTER TABLE ONLY public.sigorta ALTER COLUMN sigortaid SET DEFAULT nextval('publ
 
 
 --
--- Name: tedavi tedavi_ID; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: tedavi tedaviid; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.tedavi ALTER COLUMN "tedavi_ID" SET DEFAULT nextval('public."tedavi_tedavi_ID_seq"'::regclass);
+ALTER TABLE ONLY public.tedavi ALTER COLUMN tedaviid SET DEFAULT nextval('public.tedavi_tedaviid_seq'::regclass);
 
 
 --
--- Name: urunFiyatDegisim urunFiyatDegisimi_ID; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: urunfiyatdegisim urunfiyatdegisimiid; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."urunFiyatDegisim" ALTER COLUMN "urunFiyatDegisimi_ID" SET DEFAULT nextval('public."urunFiyatDegisim_urunFiyatDegisimi_ID_seq"'::regclass);
+ALTER TABLE ONLY public.urunfiyatdegisim ALTER COLUMN urunfiyatdegisimiid SET DEFAULT nextval('public."urunFiyatDegisim_urunFiyatDegisimi_ID_seq"'::regclass);
 
 
 --
 -- Data for Name: doktor; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.doktor VALUES
+	(15, 'off artık cidden', 3000575);
+
+
+--
+-- Data for Name: duyurular; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 
@@ -641,6 +754,11 @@ ALTER TABLE ONLY public."urunFiyatDegisim" ALTER COLUMN "urunFiyatDegisimi_ID" S
 -- Data for Name: ekipman; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.ekipman VALUES
+	(1, 'fatih ekipman', 'asd', '15 hafta', 'samsn', 1),
+	(2, 'bicak', 'A85', '1 yıl', 'bicak san.', 4),
+	(3, 'makas', 'keskin burun', '2 ay', 'makas san.', 5),
+	(4, 'igne', 'ince uc.', 'yoktur. tek kullanımlık.', 'makas san.', 6);
 
 
 --
@@ -649,19 +767,36 @@ ALTER TABLE ONLY public."urunFiyatDegisim" ALTER COLUMN "urunFiyatDegisimi_ID" S
 
 INSERT INTO public.envanter VALUES
 	(1, 10, 'fatihh', 25),
-	(2, 25, 'asude ltd', 487);
+	(2, 25, 'asude ltd', 487),
+	(3, 5, 'samsn', 57),
+	(4, 5, 'bicak ted.', 15),
+	(5, 200, 'makas ted.', 20),
+	(6, 2000, 'iğne ted.', 1);
+
+
+--
+-- Data for Name: gorusoneri; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.gorusoneri VALUES
+	(1, 'elif', 'gözlemci', 'Hastaneye asik oldm', 'cok ii mutlaka hastalnın gelin');
 
 
 --
 -- Data for Name: hasta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.hasta VALUES
+	(8, 0);
 
 
 --
 -- Data for Name: hemsire; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.hemsire VALUES
+	(13, 'yan isci', 3640),
+	(0, 'NULL', 0);
 
 
 --
@@ -669,52 +804,68 @@ INSERT INTO public.envanter VALUES
 --
 
 INSERT INTO public.ilac VALUES
-	(1, 'isim:', 'parol', 'agri '),
-	(2, 'isim:', 'majezik', 'agri'),
-	(3, 'isim:', '', ''),
-	(4, 'isim:', 'fatşhsan', 'yep yepni');
+	(6, 'milka', 'danone', 'muzlu cikolata'),
+	(1, 'parol', 'abdi ibraho', 'agri'),
+	(2, 'mazejik', 'bayer', 'agri');
 
 
 --
 -- Data for Name: islem; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.islem VALUES
+	(1, 'keskin', 5, 'kesici alettt'),
+	(3, 'dikis(buyuk)', 15, 'buyuk yaraları kapatmak icin'),
+	(2, 'dikis', 10, 'kucuk yaraları kapatmak icin'),
+	(6, 'ekipman deneme', 30, 'ekipman deniyorz');
 
 
 --
--- Data for Name: islemEkipman; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: islemekipman; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.islemekipman VALUES
+	(6, 3),
+	(6, 4);
 
 
 --
 -- Data for Name: kisi; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-
-
---
--- Data for Name: poliklinik; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
+INSERT INTO public.kisi VALUES
+	(8, 'fatih', 'türkel', '12354557855', '2022-12-01', 'Erkek', '54', NULL, true, NULL, NULL),
+	(14, 'ayse', 'duzduran', '49823844163', '2022-07-06', 'Kadın', '165', NULL, NULL, NULL, true),
+	(13, 'fatma', 'off', '36914725835', '2022-12-09', 'Kadın', '+4635215', NULL, NULL, NULL, true),
+	(15, 'uyvar', 'türkel', '12345679826', '2022-12-02', 'Erkek', '+547687', true, NULL, NULL, NULL),
+	(0, 'NULL', 'NULL', 'NULL', '1970-01-01', 'NULL', 'NULL', true, true, true, true),
+	(16, 'ahmet', 'erkan', '14785236945', '2020-02-04', 'Erkek', '+15612', true, NULL, NULL, NULL);
 
 
 --
 -- Data for Name: randevu; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.randevu VALUES
+	(2, 15, 8, '2022-12-16', '14:25:00');
 
 
 --
 -- Data for Name: recete; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.recete VALUES
+	(1, '1 mg', '12 saate 1', 'tok karına alınsın ', 4),
+	(2, '2 mg', '6 saate 1', 'Sık ', 4);
 
 
 --
--- Data for Name: receteIlac; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: receteilac; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.receteilac VALUES
+	(2, 1),
+	(2, 2);
 
 
 --
@@ -722,117 +873,119 @@ INSERT INTO public.ilac VALUES
 --
 
 INSERT INTO public.sigorta VALUES
-	(5, 'asude', '345', 'kırıkkale', '12');
+	(5, 'asude', '3659', '12', 'kirikale'),
+	(0, 'Yok', 'Null', 'Null', 'Null');
 
 
 --
 -- Data for Name: tedavi; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.tedavi VALUES
+	(4, 15, 8, '2022-12-09', 'hasta iylesti', 100, 0),
+	(9, 15, 8, '2022-12-15', 'tekrar hastlanmsn', 215, NULL);
 
 
 --
--- Data for Name: tedaviHemsire; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: tedaviislem; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-
-
---
--- Data for Name: tedaviIslem; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
+INSERT INTO public.tedaviislem VALUES
+	(6, 4);
 
 
 --
--- Data for Name: urunFiyatDegisim; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: urunfiyatdegisim; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public."urunFiyatDegisim" VALUES
+INSERT INTO public.urunfiyatdegisim VALUES
 	(1, 1, 15, 20, '2022-12-15 14:21:29.772288'),
-	(2, 1, 20, 25, '2022-12-15 14:22:44.069828');
+	(2, 1, 20, 25, '2022-12-15 14:22:44.069828'),
+	(3, 3, 10, 57, '2022-12-24 13:46:33.959255');
 
 
 --
--- Data for Name: yonetim; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Name: duyurular_duyuruid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
+SELECT pg_catalog.setval('public.duyurular_duyuruid_seq', 1, false);
 
 
 --
 -- Name: ekipman_ekipman_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."ekipman_ekipman_ID_seq"', 1, false);
+SELECT pg_catalog.setval('public."ekipman_ekipman_ID_seq"', 4, true);
 
 
 --
 -- Name: envanter_urun_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."envanter_urun_ID_seq"', 2, true);
+SELECT pg_catalog.setval('public."envanter_urun_ID_seq"', 6, true);
+
+
+--
+-- Name: gorusoneri_gorusoneriid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.gorusoneri_gorusoneriid_seq', 1, true);
 
 
 --
 -- Name: ilac_ilac_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."ilac_ilac_ID_seq"', 4, true);
+SELECT pg_catalog.setval('public."ilac_ilac_ID_seq"', 6, true);
 
 
 --
--- Name: islem_islem_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: islem_islemid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."islem_islem_ID_seq"', 1, false);
-
-
---
--- Name: kisi_kisi_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public."kisi_kisi_ID_seq"', 1, false);
+SELECT pg_catalog.setval('public.islem_islemid_seq', 6, true);
 
 
 --
--- Name: poliklinik_poliklinik_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: kisi_kisiid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."poliklinik_poliklinik_ID_seq"', 1, false);
+SELECT pg_catalog.setval('public.kisi_kisiid_seq', 16, true);
 
 
 --
 -- Name: randevu_randevu_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."randevu_randevu_ID_seq"', 1, false);
+SELECT pg_catalog.setval('public."randevu_randevu_ID_seq"', 2, true);
 
 
 --
--- Name: recete_recete_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: recete_receteid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."recete_recete_ID_seq"', 1, false);
+SELECT pg_catalog.setval('public.recete_receteid_seq', 2, true);
 
 
 --
 -- Name: sigorta_sigorta_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."sigorta_sigorta_ID_seq"', 11, true);
+SELECT pg_catalog.setval('public."sigorta_sigorta_ID_seq"', 12, true);
 
 
 --
--- Name: tedavi_tedavi_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: tedavi_tedaviid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."tedavi_tedavi_ID_seq"', 1, false);
+SELECT pg_catalog.setval('public.tedavi_tedaviid_seq', 9, true);
 
 
 --
 -- Name: urunFiyatDegisim_urunFiyatDegisimi_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."urunFiyatDegisim_urunFiyatDegisimi_ID_seq"', 2, true);
+SELECT pg_catalog.setval('public."urunFiyatDegisim_urunFiyatDegisimi_ID_seq"', 5, true);
 
 
 --
@@ -840,7 +993,15 @@ SELECT pg_catalog.setval('public."urunFiyatDegisim_urunFiyatDegisimi_ID_seq"', 2
 --
 
 ALTER TABLE ONLY public.doktor
-    ADD CONSTRAINT doktor_pkey PRIMARY KEY ("kisi_ID");
+    ADD CONSTRAINT doktor_pkey PRIMARY KEY (kisiid);
+
+
+--
+-- Name: duyurular duyurular_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.duyurular
+    ADD CONSTRAINT duyurular_pkey PRIMARY KEY (duyuruid);
 
 
 --
@@ -848,7 +1009,7 @@ ALTER TABLE ONLY public.doktor
 --
 
 ALTER TABLE ONLY public.ekipman
-    ADD CONSTRAINT "ekipman_ekipman_ID_key" UNIQUE ("ekipman_ID");
+    ADD CONSTRAINT "ekipman_ekipman_ID_key" UNIQUE (ekipmanid);
 
 
 --
@@ -856,7 +1017,7 @@ ALTER TABLE ONLY public.ekipman
 --
 
 ALTER TABLE ONLY public.ekipman
-    ADD CONSTRAINT ekipman_pkey PRIMARY KEY ("ekipman_ID", "urun_ID");
+    ADD CONSTRAINT ekipman_pkey PRIMARY KEY (ekipmanid, urunid);
 
 
 --
@@ -864,7 +1025,15 @@ ALTER TABLE ONLY public.ekipman
 --
 
 ALTER TABLE ONLY public.envanter
-    ADD CONSTRAINT envanter_pkey PRIMARY KEY ("urun_ID");
+    ADD CONSTRAINT envanter_pkey PRIMARY KEY (urunid);
+
+
+--
+-- Name: gorusoneri gorusoneri_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.gorusoneri
+    ADD CONSTRAINT gorusoneri_pkey PRIMARY KEY (gorusoneriid);
 
 
 --
@@ -872,7 +1041,7 @@ ALTER TABLE ONLY public.envanter
 --
 
 ALTER TABLE ONLY public.hasta
-    ADD CONSTRAINT hasta_pkey PRIMARY KEY ("kisi_ID");
+    ADD CONSTRAINT hasta_pkey PRIMARY KEY (kisiid);
 
 
 --
@@ -880,7 +1049,7 @@ ALTER TABLE ONLY public.hasta
 --
 
 ALTER TABLE ONLY public.hemsire
-    ADD CONSTRAINT hemsire_pkey PRIMARY KEY ("kisi_ID");
+    ADD CONSTRAINT hemsire_pkey PRIMARY KEY (kisiid);
 
 
 --
@@ -892,11 +1061,11 @@ ALTER TABLE ONLY public.ilac
 
 
 --
--- Name: islemEkipman islemEkipman_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: islemekipman islemEkipman_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."islemEkipman"
-    ADD CONSTRAINT "islemEkipman_pkey" PRIMARY KEY ("islem_ID", "ekipman_ID");
+ALTER TABLE ONLY public.islemekipman
+    ADD CONSTRAINT "islemEkipman_pkey" PRIMARY KEY (islemid, ekipmanid);
 
 
 --
@@ -904,7 +1073,7 @@ ALTER TABLE ONLY public."islemEkipman"
 --
 
 ALTER TABLE ONLY public.islem
-    ADD CONSTRAINT islem_pkey PRIMARY KEY ("islem_ID");
+    ADD CONSTRAINT islem_pkey PRIMARY KEY (islemid);
 
 
 --
@@ -912,15 +1081,7 @@ ALTER TABLE ONLY public.islem
 --
 
 ALTER TABLE ONLY public.kisi
-    ADD CONSTRAINT kisi_pkey PRIMARY KEY ("kisi_ID");
-
-
---
--- Name: poliklinik poliklinik_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.poliklinik
-    ADD CONSTRAINT poliklinik_pkey PRIMARY KEY ("poliklinik_ID");
+    ADD CONSTRAINT kisi_pkey PRIMARY KEY (kisiid);
 
 
 --
@@ -928,15 +1089,15 @@ ALTER TABLE ONLY public.poliklinik
 --
 
 ALTER TABLE ONLY public.randevu
-    ADD CONSTRAINT randevu_pkey PRIMARY KEY ("randevu_ID");
+    ADD CONSTRAINT randevu_pkey PRIMARY KEY (randevuid);
 
 
 --
--- Name: receteIlac receteIlac_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: receteilac receteIlac_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."receteIlac"
-    ADD CONSTRAINT "receteIlac_pkey" PRIMARY KEY ("recete_ID", "ilac_ID");
+ALTER TABLE ONLY public.receteilac
+    ADD CONSTRAINT "receteIlac_pkey" PRIMARY KEY (receteid, ilacid);
 
 
 --
@@ -944,7 +1105,7 @@ ALTER TABLE ONLY public."receteIlac"
 --
 
 ALTER TABLE ONLY public.recete
-    ADD CONSTRAINT recete_pkey PRIMARY KEY ("recete_ID");
+    ADD CONSTRAINT recete_pkey PRIMARY KEY (receteid);
 
 
 --
@@ -956,19 +1117,11 @@ ALTER TABLE ONLY public.sigorta
 
 
 --
--- Name: tedaviHemsire tedaviHemsire_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: tedaviislem tedaviIslem_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."tedaviHemsire"
-    ADD CONSTRAINT "tedaviHemsire_pkey" PRIMARY KEY ("hemsire_ID", "tedavi_ID");
-
-
---
--- Name: tedaviIslem tedaviIslem_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."tedaviIslem"
-    ADD CONSTRAINT "tedaviIslem_pkey" PRIMARY KEY ("islem_ID", "tedavi_ID");
+ALTER TABLE ONLY public.tedaviislem
+    ADD CONSTRAINT "tedaviIslem_pkey" PRIMARY KEY (islemid, tedaviid);
 
 
 --
@@ -976,7 +1129,7 @@ ALTER TABLE ONLY public."tedaviIslem"
 --
 
 ALTER TABLE ONLY public.tedavi
-    ADD CONSTRAINT tedavi_pkey PRIMARY KEY ("tedavi_ID");
+    ADD CONSTRAINT tedavi_pkey PRIMARY KEY (tedaviid);
 
 
 --
@@ -992,7 +1145,7 @@ ALTER TABLE ONLY public.islem
 --
 
 ALTER TABLE ONLY public.kisi
-    ADD CONSTRAINT "unique_kisi_tcNo" UNIQUE ("tcNo");
+    ADD CONSTRAINT "unique_kisi_tcNo" UNIQUE (tcno);
 
 
 --
@@ -1004,19 +1157,11 @@ ALTER TABLE ONLY public.sigorta
 
 
 --
--- Name: urunFiyatDegisim urunFiyatDegisim_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: urunfiyatdegisim urunFiyatDegisim_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."urunFiyatDegisim"
-    ADD CONSTRAINT "urunFiyatDegisim_pkey" PRIMARY KEY ("urunFiyatDegisimi_ID");
-
-
---
--- Name: yonetim yonetim_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.yonetim
-    ADD CONSTRAINT yonetim_pkey PRIMARY KEY ("kisi_ID");
+ALTER TABLE ONLY public.urunfiyatdegisim
+    ADD CONSTRAINT "urunFiyatDegisim_pkey" PRIMARY KEY (urunfiyatdegisimiid);
 
 
 --
@@ -1031,7 +1176,7 @@ CREATE TRIGGER "urunBirimFiyatDegistiginde" BEFORE UPDATE ON public.envanter FOR
 --
 
 ALTER TABLE ONLY public.randevu
-    ADD CONSTRAINT "doktor_randevu_FK" FOREIGN KEY ("doktor_ID") REFERENCES public.doktor("kisi_ID") MATCH FULL;
+    ADD CONSTRAINT "doktor_randevu_FK" FOREIGN KEY (doktorid) REFERENCES public.doktor(kisiid) MATCH FULL;
 
 
 --
@@ -1046,7 +1191,7 @@ COMMENT ON CONSTRAINT "doktor_randevu_FK" ON public.randevu IS 'doktor-randevu f
 --
 
 ALTER TABLE ONLY public.tedavi
-    ADD CONSTRAINT "doktor_tedavi_FK" FOREIGN KEY ("doktor_ID") REFERENCES public.doktor("kisi_ID") MATCH FULL;
+    ADD CONSTRAINT "doktor_tedavi_FK" FOREIGN KEY (doktorid) REFERENCES public.doktor(kisiid) MATCH FULL;
 
 
 --
@@ -1057,11 +1202,11 @@ COMMENT ON CONSTRAINT "doktor_tedavi_FK" ON public.tedavi IS 'doktor-tedavi fk b
 
 
 --
--- Name: islemEkipman ekipman_islemEkipman_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: islemekipman ekipman_islemEkipman_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."islemEkipman"
-    ADD CONSTRAINT "ekipman_islemEkipman_FK" FOREIGN KEY ("ekipman_ID") REFERENCES public.ekipman("ekipman_ID") MATCH FULL;
+ALTER TABLE ONLY public.islemekipman
+    ADD CONSTRAINT "ekipman_islemEkipman_FK" FOREIGN KEY (ekipmanid) REFERENCES public.ekipman(ekipmanid) MATCH FULL;
 
 
 --
@@ -1069,15 +1214,15 @@ ALTER TABLE ONLY public."islemEkipman"
 --
 
 ALTER TABLE ONLY public.ekipman
-    ADD CONSTRAINT "envanter_ekipman_FK" FOREIGN KEY ("urun_ID") REFERENCES public.envanter("urun_ID") MATCH FULL;
+    ADD CONSTRAINT "envanter_ekipman_FK" FOREIGN KEY (urunid) REFERENCES public.envanter(urunid) MATCH FULL;
 
 
 --
--- Name: urunFiyatDegisim envanter_urunFiyatDegisimi_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: urunfiyatdegisim envanter_urunFiyatDegisimi_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."urunFiyatDegisim"
-    ADD CONSTRAINT "envanter_urunFiyatDegisimi_FK" FOREIGN KEY ("urun_ID") REFERENCES public.envanter("urun_ID") MATCH FULL;
+ALTER TABLE ONLY public.urunfiyatdegisim
+    ADD CONSTRAINT "envanter_urunFiyatDegisimi_FK" FOREIGN KEY (urunid) REFERENCES public.envanter(urunid) MATCH FULL;
 
 
 --
@@ -1085,7 +1230,7 @@ ALTER TABLE ONLY public."urunFiyatDegisim"
 --
 
 ALTER TABLE ONLY public.randevu
-    ADD CONSTRAINT "hasta_randevu_FK" FOREIGN KEY ("hasta_ID") REFERENCES public.hasta("kisi_ID") MATCH FULL;
+    ADD CONSTRAINT "hasta_randevu_FK" FOREIGN KEY (hastaid) REFERENCES public.hasta(kisiid) MATCH FULL;
 
 
 --
@@ -1100,7 +1245,7 @@ COMMENT ON CONSTRAINT "hasta_randevu_FK" ON public.randevu IS 'hasta-randevu fk 
 --
 
 ALTER TABLE ONLY public.tedavi
-    ADD CONSTRAINT "hasta_tedavi_FK" FOREIGN KEY ("hasta_ID") REFERENCES public.hasta("kisi_ID") MATCH FULL;
+    ADD CONSTRAINT "hasta_tedavi_FK" FOREIGN KEY (hastaid) REFERENCES public.hasta(kisiid) MATCH FULL;
 
 
 --
@@ -1111,35 +1256,35 @@ COMMENT ON CONSTRAINT "hasta_tedavi_FK" ON public.tedavi IS 'hasta-tedavi fk ba�
 
 
 --
--- Name: tedaviHemsire hemsire_tedaviHemsire_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: tedavi hemsire_tedavi_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."tedaviHemsire"
-    ADD CONSTRAINT "hemsire_tedaviHemsire_FK" FOREIGN KEY ("hemsire_ID") REFERENCES public.hemsire("kisi_ID") MATCH FULL;
-
-
---
--- Name: receteIlac ilac_receteIlac_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."receteIlac"
-    ADD CONSTRAINT "ilac_receteIlac_FK" FOREIGN KEY ("ilac_ID") REFERENCES public.ilac(ilacid) MATCH FULL;
+ALTER TABLE ONLY public.tedavi
+    ADD CONSTRAINT "hemsire_tedavi_FK" FOREIGN KEY (hemsireid) REFERENCES public.hemsire(kisiid) MATCH FULL;
 
 
 --
--- Name: islemEkipman islem_islemEkipman_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: receteilac ilac_receteIlac_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."islemEkipman"
-    ADD CONSTRAINT "islem_islemEkipman_FK" FOREIGN KEY ("islem_ID") REFERENCES public.islem("islem_ID") MATCH FULL;
+ALTER TABLE ONLY public.receteilac
+    ADD CONSTRAINT "ilac_receteIlac_FK" FOREIGN KEY (ilacid) REFERENCES public.ilac(ilacid) MATCH FULL;
 
 
 --
--- Name: tedaviIslem islem_tedaviIslem_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: islemekipman islem_islemEkipman_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."tedaviIslem"
-    ADD CONSTRAINT "islem_tedaviIslem_FK" FOREIGN KEY ("islem_ID") REFERENCES public.islem("islem_ID") MATCH FULL;
+ALTER TABLE ONLY public.islemekipman
+    ADD CONSTRAINT "islem_islemEkipman_FK" FOREIGN KEY (islemid) REFERENCES public.islem(islemid) MATCH FULL;
+
+
+--
+-- Name: tedaviislem islem_tedaviIslem_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tedaviislem
+    ADD CONSTRAINT "islem_tedaviIslem_FK" FOREIGN KEY (islemid) REFERENCES public.islem(islemid) MATCH FULL;
 
 
 --
@@ -1147,7 +1292,7 @@ ALTER TABLE ONLY public."tedaviIslem"
 --
 
 ALTER TABLE ONLY public.doktor
-    ADD CONSTRAINT "kisi_doktor_FK" FOREIGN KEY ("kisi_ID") REFERENCES public.kisi("kisi_ID") MATCH FULL ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT "kisi_doktor_FK" FOREIGN KEY (kisiid) REFERENCES public.kisi(kisiid) MATCH FULL ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -1162,7 +1307,7 @@ COMMENT ON CONSTRAINT "kisi_doktor_FK" ON public.doktor IS 'kisi doktor arasınd
 --
 
 ALTER TABLE ONLY public.hasta
-    ADD CONSTRAINT "kisi_hasta_FK" FOREIGN KEY ("kisi_ID") REFERENCES public.kisi("kisi_ID") MATCH FULL ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT "kisi_hasta_FK" FOREIGN KEY (kisiid) REFERENCES public.kisi(kisiid) MATCH FULL ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -1177,7 +1322,7 @@ COMMENT ON CONSTRAINT "kisi_hasta_FK" ON public.hasta IS 'kisi-hasta fk bağlant
 --
 
 ALTER TABLE ONLY public.hemsire
-    ADD CONSTRAINT "kisi_hemsire_FK" FOREIGN KEY ("kisi_ID") REFERENCES public.kisi("kisi_ID") MATCH FULL ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT "kisi_hemsire_FK" FOREIGN KEY (kisiid) REFERENCES public.kisi(kisiid) MATCH FULL ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -1188,26 +1333,11 @@ COMMENT ON CONSTRAINT "kisi_hemsire_FK" ON public.hemsire IS 'kisi hemsire aras�
 
 
 --
--- Name: yonetim kisi_yonetim_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: receteilac recete_receteIlac_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.yonetim
-    ADD CONSTRAINT "kisi_yonetim_FK" FOREIGN KEY ("kisi_ID") REFERENCES public.kisi("kisi_ID") MATCH FULL ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: CONSTRAINT "kisi_yonetim_FK" ON yonetim; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON CONSTRAINT "kisi_yonetim_FK" ON public.yonetim IS 'kisi-yonetim fk bağlantısı';
-
-
---
--- Name: receteIlac recete_receteIlac_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."receteIlac"
-    ADD CONSTRAINT "recete_receteIlac_FK" FOREIGN KEY ("recete_ID") REFERENCES public.recete("recete_ID") MATCH FULL;
+ALTER TABLE ONLY public.receteilac
+    ADD CONSTRAINT "recete_receteIlac_FK" FOREIGN KEY (receteid) REFERENCES public.recete(receteid) MATCH FULL;
 
 
 --
@@ -1215,7 +1345,7 @@ ALTER TABLE ONLY public."receteIlac"
 --
 
 ALTER TABLE ONLY public.hasta
-    ADD CONSTRAINT "sigorta_hasta_FK" FOREIGN KEY ("sigorta_ID") REFERENCES public.sigorta(sigortaid) MATCH FULL;
+    ADD CONSTRAINT "sigorta_hasta_FK" FOREIGN KEY (sigortaid) REFERENCES public.sigorta(sigortaid) MATCH FULL;
 
 
 --
@@ -1230,38 +1360,15 @@ COMMENT ON CONSTRAINT "sigorta_hasta_FK" ON public.hasta IS 'sigorta ile hasta a
 --
 
 ALTER TABLE ONLY public.recete
-    ADD CONSTRAINT "tedavi_recete_FK" FOREIGN KEY ("tedavi_ID") REFERENCES public.tedavi("tedavi_ID") MATCH FULL;
+    ADD CONSTRAINT "tedavi_recete_FK" FOREIGN KEY (tedaviid) REFERENCES public.tedavi(tedaviid) MATCH FULL;
 
 
 --
--- Name: tedaviHemsire tedavi_tedaviHemsire_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: tedaviislem tedavi_tedaviIslem_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."tedaviHemsire"
-    ADD CONSTRAINT "tedavi_tedaviHemsire_FK" FOREIGN KEY ("tedavi_ID") REFERENCES public.tedavi("tedavi_ID") MATCH FULL;
-
-
---
--- Name: tedaviIslem tedavi_tedaviIslem_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."tedaviIslem"
-    ADD CONSTRAINT "tedavi_tedaviIslem_FK" FOREIGN KEY ("tedavi_ID") REFERENCES public.tedavi("tedavi_ID") MATCH FULL;
-
-
---
--- Name: poliklinik yonetim_poliklinik_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.poliklinik
-    ADD CONSTRAINT "yonetim_poliklinik_FK" FOREIGN KEY (yonetici) REFERENCES public.yonetim("kisi_ID") MATCH FULL;
-
-
---
--- Name: CONSTRAINT "yonetim_poliklinik_FK" ON poliklinik; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON CONSTRAINT "yonetim_poliklinik_FK" ON public.poliklinik IS 'yonetim-poliklinik fk bağlantısı';
+ALTER TABLE ONLY public.tedaviislem
+    ADD CONSTRAINT "tedavi_tedaviIslem_FK" FOREIGN KEY (tedaviid) REFERENCES public.tedavi(tedaviid) MATCH FULL;
 
 
 --

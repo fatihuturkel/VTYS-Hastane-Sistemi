@@ -74,7 +74,7 @@ namespace hastane_deneme_1
                 {
                     //insert data to islemekipman table if ekipmanid1 is not blank
                     NpgsqlCommand islemekipman = new NpgsqlCommand("insert into islemekipman (islemid,ekipmanid) values (currval('islem_islemid_seq'),@ekipmanid)", baglanti);
-                    islemekipman.Parameters.AddWithValue("@ekipmanid1", Int32.Parse(ekipmanid1.Text));
+                    islemekipman.Parameters.AddWithValue("@ekipmanid", Int32.Parse(ekipmanid1.Text));
                     islemekipman.ExecuteNonQuery();
                     baglanti.Close();
                 }

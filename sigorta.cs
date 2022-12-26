@@ -39,8 +39,8 @@ namespace hastane_deneme_1
             NpgsqlCommand ekle = new NpgsqlCommand("insert into sigorta (isim,telno,adress,mersisno) values (@isim,@telNo,@adress,@mersisNo)", baglanti);
             ekle.Parameters.AddWithValue("@isim", isim.Text);
             ekle.Parameters.AddWithValue("@telNo", telNo.Text);
-            ekle.Parameters.AddWithValue("@adress", adres.Text);
-            ekle.Parameters.AddWithValue("@mersisNo", mersisNo.Text);
+            ekle.Parameters.AddWithValue("@adress", mersisNo.Text);
+            ekle.Parameters.AddWithValue("@mersisNo", adres.Text);
             baglanti.Open();
             ekle.ExecuteNonQuery();
             baglanti.Close();
@@ -65,8 +65,8 @@ namespace hastane_deneme_1
             NpgsqlCommand update = new NpgsqlCommand("update sigorta set  isim=@isim,telno=@telNo,adress=@adress,mersisno=@mersisno where sigortaid=@sigortaid", baglanti);
             update.Parameters.AddWithValue("@isim",isim.Text);
             update.Parameters.AddWithValue("@telno",telNo.Text);
-            update.Parameters.AddWithValue("@adress",adres.Text);
-            update.Parameters.AddWithValue("@mersisno",mersisNo.Text);
+            update.Parameters.AddWithValue("@adress",mersisNo.Text);
+            update.Parameters.AddWithValue("@mersisno",adres.Text);
             update.Parameters.AddWithValue("@sigortaid", int.Parse(sigortaid.Text));
             update.ExecuteNonQuery();
             MessageBox.Show("Sigorta güncelleme işlemi başarılı bir şekilde gerçekleşti");

@@ -34,10 +34,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.adres = new System.Windows.Forms.TextBox();
+            this.mersisNo = new System.Windows.Forms.TextBox();
             this.telNo = new System.Windows.Forms.TextBox();
             this.isim = new System.Windows.Forms.TextBox();
-            this.mersisNo = new System.Windows.Forms.TextBox();
+            this.adres = new System.Windows.Forms.TextBox();
             this.ekle = new System.Windows.Forms.Button();
             this.sil = new System.Windows.Forms.Button();
             this.guncelle = new System.Windows.Forms.Button();
@@ -110,13 +110,13 @@
             this.label5.Text = "mersisNo:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // adres
+            // mersisNo
             // 
-            this.adres.Location = new System.Drawing.Point(157, 132);
-            this.adres.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.adres.Name = "adres";
-            this.adres.Size = new System.Drawing.Size(157, 22);
-            this.adres.TabIndex = 8;
+            this.mersisNo.Location = new System.Drawing.Point(157, 101);
+            this.mersisNo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.mersisNo.Name = "mersisNo";
+            this.mersisNo.Size = new System.Drawing.Size(157, 22);
+            this.mersisNo.TabIndex = 8;
             // 
             // telNo
             // 
@@ -135,13 +135,13 @@
             this.isim.Size = new System.Drawing.Size(157, 22);
             this.isim.TabIndex = 10;
             // 
-            // mersisNo
+            // adres
             // 
-            this.mersisNo.Location = new System.Drawing.Point(157, 96);
-            this.mersisNo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.mersisNo.Name = "mersisNo";
-            this.mersisNo.Size = new System.Drawing.Size(157, 22);
-            this.mersisNo.TabIndex = 11;
+            this.adres.Location = new System.Drawing.Point(157, 134);
+            this.adres.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.adres.Name = "adres";
+            this.adres.Size = new System.Drawing.Size(157, 22);
+            this.adres.TabIndex = 11;
             // 
             // ekle
             // 
@@ -216,10 +216,10 @@
             this.Controls.Add(this.guncelle);
             this.Controls.Add(this.sil);
             this.Controls.Add(this.ekle);
-            this.Controls.Add(this.mersisNo);
+            this.Controls.Add(this.adres);
             this.Controls.Add(this.isim);
             this.Controls.Add(this.telNo);
-            this.Controls.Add(this.adres);
+            this.Controls.Add(this.mersisNo);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -243,10 +243,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox adres;
+        private System.Windows.Forms.TextBox mersisNo;
         private System.Windows.Forms.TextBox telNo;
         private System.Windows.Forms.TextBox isim;
-        private System.Windows.Forms.TextBox mersisNo;
+        private System.Windows.Forms.TextBox adres;
         private System.Windows.Forms.Button sil;
         private System.Windows.Forms.Button guncelle;
         private System.Windows.Forms.Label label1;

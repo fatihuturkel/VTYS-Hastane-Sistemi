@@ -92,6 +92,44 @@ $$;
 ALTER FUNCTION public.count_tedavi_hasta(kisiid integer) OWNER TO postgres;
 
 --
+-- Name: doktorsilinmekoruma(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.doktorsilinmekoruma() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    INSERT INTO "silinendoktor" ("kisiid", "pozisyon", "maas", "tcno")
+    SELECT OLD."kisiid", OLD."pozisyon", OLD."maas", "kisi"."tcno"
+    FROM "kisi"
+    WHERE "kisi"."kisiid" = OLD."kisiid";
+    RETURN NULL;
+END;
+$$;
+
+
+ALTER FUNCTION public.doktorsilinmekoruma() OWNER TO postgres;
+
+--
+-- Name: hastasilinmekoruma(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.hastasilinmekoruma() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    INSERT INTO "silinenhasta" ("kisiid", "sigortaid","tcno")
+    SELECT OLD."kisiid", OLD."sigortaid","kisi"."tcno"
+    FROM "kisi"
+    WHERE "kisi"."kisiid" = OLD."kisiid";
+    RETURN NULL;
+END;
+$$;
+
+
+ALTER FUNCTION public.hastasilinmekoruma() OWNER TO postgres;
+
+--
 -- Name: hastatoplamodeme(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -105,6 +143,25 @@ $$;
 
 
 ALTER FUNCTION public.hastatoplamodeme(kisiid integer) OWNER TO postgres;
+
+--
+-- Name: hemsiresilmekoruma(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.hemsiresilmekoruma() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    INSERT INTO "silinenhemsire" ("kisiid", "pozisyon", "maas", "tcno")
+    SELECT OLD."kisiid", OLD."pozisyon", OLD."maas", "kisi"."tcno"
+    FROM "kisi"
+    WHERE "kisi"."kisiid" = OLD."kisiid";
+    RETURN NULL;
+END;
+$$;
+
+
+ALTER FUNCTION public.hemsiresilmekoruma() OWNER TO postgres;
 
 --
 -- Name: urunFiyatDegisimKaydi(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -565,6 +622,113 @@ ALTER SEQUENCE public."sigorta_sigorta_ID_seq" OWNED BY public.sigorta.sigortaid
 
 
 --
+-- Name: silinendoktor; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.silinendoktor (
+    silinendoktorid integer NOT NULL,
+    kisiid integer NOT NULL,
+    pozisyon text NOT NULL,
+    maas text NOT NULL
+);
+
+
+ALTER TABLE public.silinendoktor OWNER TO postgres;
+
+--
+-- Name: silinendoktor_silinendoktorid_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.silinendoktor_silinendoktorid_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.silinendoktor_silinendoktorid_seq OWNER TO postgres;
+
+--
+-- Name: silinendoktor_silinendoktorid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.silinendoktor_silinendoktorid_seq OWNED BY public.silinendoktor.silinendoktorid;
+
+
+--
+-- Name: silinenhasta; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.silinenhasta (
+    silinenhastaid integer NOT NULL,
+    kisiid integer NOT NULL,
+    sigortaid integer NOT NULL
+);
+
+
+ALTER TABLE public.silinenhasta OWNER TO postgres;
+
+--
+-- Name: silinenhasta_silinenhastaid_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.silinenhasta_silinenhastaid_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.silinenhasta_silinenhastaid_seq OWNER TO postgres;
+
+--
+-- Name: silinenhasta_silinenhastaid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.silinenhasta_silinenhastaid_seq OWNED BY public.silinenhasta.silinenhastaid;
+
+
+--
+-- Name: silinenhemsire; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.silinenhemsire (
+    silinenhemsireid integer NOT NULL,
+    kisiid integer NOT NULL,
+    pozisyon text NOT NULL,
+    maas text NOT NULL
+);
+
+
+ALTER TABLE public.silinenhemsire OWNER TO postgres;
+
+--
+-- Name: silinenhemsire_silinenhemsireid_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.silinenhemsire_silinenhemsireid_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.silinenhemsire_silinenhemsireid_seq OWNER TO postgres;
+
+--
+-- Name: silinenhemsire_silinenhemsireid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.silinenhemsire_silinenhemsireid_seq OWNED BY public.silinenhemsire.silinenhemsireid;
+
+
+--
 -- Name: tedavi; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -723,6 +887,27 @@ ALTER TABLE ONLY public.sigorta ALTER COLUMN sigortaid SET DEFAULT nextval('publ
 
 
 --
+-- Name: silinendoktor silinendoktorid; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.silinendoktor ALTER COLUMN silinendoktorid SET DEFAULT nextval('public.silinendoktor_silinendoktorid_seq'::regclass);
+
+
+--
+-- Name: silinenhasta silinenhastaid; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.silinenhasta ALTER COLUMN silinenhastaid SET DEFAULT nextval('public.silinenhasta_silinenhastaid_seq'::regclass);
+
+
+--
+-- Name: silinenhemsire silinenhemsireid; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.silinenhemsire ALTER COLUMN silinenhemsireid SET DEFAULT nextval('public.silinenhemsire_silinenhemsireid_seq'::regclass);
+
+
+--
 -- Name: tedavi tedaviid; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -741,13 +926,16 @@ ALTER TABLE ONLY public.urunfiyatdegisim ALTER COLUMN urunfiyatdegisimiid SET DE
 --
 
 INSERT INTO public.doktor VALUES
-	(15, 'off artık cidden', 3000575);
+	(15, 'estetik', 20000),
+	(21, 'cerrahi', 1000);
 
 
 --
 -- Data for Name: duyurular; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.duyurular VALUES
+	(1, 'yeni doktor geldi', 'hayırlı ugurlu olsun');
 
 
 --
@@ -758,7 +946,8 @@ INSERT INTO public.ekipman VALUES
 	(1, 'fatih ekipman', 'asd', '15 hafta', 'samsn', 1),
 	(2, 'bicak', 'A85', '1 yıl', 'bicak san.', 4),
 	(3, 'makas', 'keskin burun', '2 ay', 'makas san.', 5),
-	(4, 'igne', 'ince uc.', 'yoktur. tek kullanımlık.', 'makas san.', 6);
+	(4, 'igne', 'ince uc.', 'yoktur. tek kullanımlık.', 'makas san.', 6),
+	(5, 'testere', 'b2', 'haftada 1', 'fatih', 1);
 
 
 --
@@ -787,7 +976,9 @@ INSERT INTO public.gorusoneri VALUES
 --
 
 INSERT INTO public.hasta VALUES
-	(8, 0);
+	(8, 0),
+	(18, 0),
+	(20, 0);
 
 
 --
@@ -817,7 +1008,11 @@ INSERT INTO public.islem VALUES
 	(1, 'keskin', 5, 'kesici alettt'),
 	(3, 'dikis(buyuk)', 15, 'buyuk yaraları kapatmak icin'),
 	(2, 'dikis', 10, 'kucuk yaraları kapatmak icin'),
-	(6, 'ekipman deneme', 30, 'ekipman deniyorz');
+	(6, 'ekipman deneme', 30, 'ekipman deniyorz'),
+	(7, 'röntgen', 12, ''),
+	(8, 'rontgen', 12, ''),
+	(11, 'igneli dikiş', 12, ''),
+	(12, 'alcı', 100, '');
 
 
 --
@@ -826,7 +1021,8 @@ INSERT INTO public.islem VALUES
 
 INSERT INTO public.islemekipman VALUES
 	(6, 3),
-	(6, 4);
+	(6, 4),
+	(12, 5);
 
 
 --
@@ -837,9 +1033,14 @@ INSERT INTO public.kisi VALUES
 	(8, 'fatih', 'türkel', '12354557855', '2022-12-01', 'Erkek', '54', NULL, true, NULL, NULL),
 	(14, 'ayse', 'duzduran', '49823844163', '2022-07-06', 'Kadın', '165', NULL, NULL, NULL, true),
 	(13, 'fatma', 'off', '36914725835', '2022-12-09', 'Kadın', '+4635215', NULL, NULL, NULL, true),
-	(15, 'uyvar', 'türkel', '12345679826', '2022-12-02', 'Erkek', '+547687', true, NULL, NULL, NULL),
 	(0, 'NULL', 'NULL', 'NULL', '1970-01-01', 'NULL', 'NULL', true, true, true, true),
-	(16, 'ahmet', 'erkan', '14785236945', '2020-02-04', 'Erkek', '+15612', true, NULL, NULL, NULL);
+	(16, 'ahmet', 'erkan', '14785236945', '2020-02-04', 'Erkek', '+15612', true, NULL, NULL, NULL),
+	(18, 'enes', 'ışık', '78945612363', '2002-01-18', 'Erkek', '+901468513', NULL, true, NULL, NULL),
+	(17, 'asude', 'kadak', '74196385215', '2022-12-01', 'Kadın', '+47512', false, NULL, NULL, NULL),
+	(19, 'asude', 'ilhannn', '78945612336', '2022-12-09', 'Erkek', '+7567', false, NULL, NULL, NULL),
+	(20, 'asu', 'ilhan', '12345678912', '2022-12-26', 'Kadın', '123', NULL, true, NULL, NULL),
+	(15, 'ayse', 'unalan', '12345679826', '2022-12-09', 'Kadın', '+905389749836', true, NULL, NULL, NULL),
+	(21, 'asude', 'ilhan', '12345678998', '2022-12-01', 'Kadın', '147', true, NULL, NULL, NULL);
 
 
 --
@@ -847,7 +1048,8 @@ INSERT INTO public.kisi VALUES
 --
 
 INSERT INTO public.randevu VALUES
-	(2, 15, 8, '2022-12-16', '14:25:00');
+	(2, 15, 8, '2022-12-16', '14:25:00'),
+	(3, 15, 18, '2022-12-07', '10:00:00');
 
 
 --
@@ -856,7 +1058,8 @@ INSERT INTO public.randevu VALUES
 
 INSERT INTO public.recete VALUES
 	(1, '1 mg', '12 saate 1', 'tok karına alınsın ', 4),
-	(2, '2 mg', '6 saate 1', 'Sık ', 4);
+	(2, '2 mg', '6 saate 1', 'Sık ', 4),
+	(3, '100 mg', 'haftada1', 'yatmadan once', 4);
 
 
 --
@@ -865,7 +1068,8 @@ INSERT INTO public.recete VALUES
 
 INSERT INTO public.receteilac VALUES
 	(2, 1),
-	(2, 2);
+	(2, 2),
+	(3, 6);
 
 
 --
@@ -873,8 +1077,28 @@ INSERT INTO public.receteilac VALUES
 --
 
 INSERT INTO public.sigorta VALUES
-	(5, 'asude', '3659', '12', 'kirikale'),
-	(0, 'Yok', 'Null', 'Null', 'Null');
+	(0, 'Yok', 'Null', 'Null', 'Null'),
+	(5, 'AsudeSigortacılık', '+90578455757', 'kırıkkale', '465134865');
+
+
+--
+-- Data for Name: silinendoktor; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.silinendoktor VALUES
+	(1, 19, 'ck ii', '30');
+
+
+--
+-- Data for Name: silinenhasta; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- Data for Name: silinenhemsire; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
 
 
 --
@@ -908,14 +1132,14 @@ INSERT INTO public.urunfiyatdegisim VALUES
 -- Name: duyurular_duyuruid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.duyurular_duyuruid_seq', 1, false);
+SELECT pg_catalog.setval('public.duyurular_duyuruid_seq', 1, true);
 
 
 --
 -- Name: ekipman_ekipman_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."ekipman_ekipman_ID_seq"', 4, true);
+SELECT pg_catalog.setval('public."ekipman_ekipman_ID_seq"', 5, true);
 
 
 --
@@ -943,28 +1167,28 @@ SELECT pg_catalog.setval('public."ilac_ilac_ID_seq"', 6, true);
 -- Name: islem_islemid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.islem_islemid_seq', 6, true);
+SELECT pg_catalog.setval('public.islem_islemid_seq', 12, true);
 
 
 --
 -- Name: kisi_kisiid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.kisi_kisiid_seq', 16, true);
+SELECT pg_catalog.setval('public.kisi_kisiid_seq', 21, true);
 
 
 --
 -- Name: randevu_randevu_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."randevu_randevu_ID_seq"', 2, true);
+SELECT pg_catalog.setval('public."randevu_randevu_ID_seq"', 3, true);
 
 
 --
 -- Name: recete_receteid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.recete_receteid_seq', 2, true);
+SELECT pg_catalog.setval('public.recete_receteid_seq', 3, true);
 
 
 --
@@ -972,6 +1196,27 @@ SELECT pg_catalog.setval('public.recete_receteid_seq', 2, true);
 --
 
 SELECT pg_catalog.setval('public."sigorta_sigorta_ID_seq"', 12, true);
+
+
+--
+-- Name: silinendoktor_silinendoktorid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.silinendoktor_silinendoktorid_seq', 1, true);
+
+
+--
+-- Name: silinenhasta_silinenhastaid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.silinenhasta_silinenhastaid_seq', 1, false);
+
+
+--
+-- Name: silinenhemsire_silinenhemsireid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.silinenhemsire_silinenhemsireid_seq', 1, false);
 
 
 --
@@ -1117,6 +1362,30 @@ ALTER TABLE ONLY public.sigorta
 
 
 --
+-- Name: silinendoktor silinendoktor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.silinendoktor
+    ADD CONSTRAINT silinendoktor_pkey PRIMARY KEY (silinendoktorid);
+
+
+--
+-- Name: silinenhasta silinenhasta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.silinenhasta
+    ADD CONSTRAINT silinenhasta_pkey PRIMARY KEY (silinenhastaid);
+
+
+--
+-- Name: silinenhemsire silinenhemsire_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.silinenhemsire
+    ADD CONSTRAINT silinenhemsire_pkey PRIMARY KEY (silinenhemsireid);
+
+
+--
 -- Name: tedaviislem tedaviIslem_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1162,6 +1431,27 @@ ALTER TABLE ONLY public.sigorta
 
 ALTER TABLE ONLY public.urunfiyatdegisim
     ADD CONSTRAINT "urunFiyatDegisim_pkey" PRIMARY KEY (urunfiyatdegisimiid);
+
+
+--
+-- Name: doktor doktorsilinmekorumaTrigger; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER "doktorsilinmekorumaTrigger" AFTER DELETE ON public.doktor FOR EACH ROW EXECUTE FUNCTION public.doktorsilinmekoruma();
+
+
+--
+-- Name: hasta hastasilinmekorumaTrigger; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER "hastasilinmekorumaTrigger" AFTER DELETE ON public.hasta FOR EACH ROW EXECUTE FUNCTION public.hastasilinmekoruma();
+
+
+--
+-- Name: hemsire hemsiresilmekorumatrigger; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER hemsiresilmekorumatrigger AFTER DELETE ON public.hemsire FOR EACH ROW EXECUTE FUNCTION public.hemsiresilmekoruma();
 
 
 --

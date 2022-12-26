@@ -100,6 +100,12 @@
     <Compile Include="Doktor.Designer.cs">
       <DependentUpon>Doktor.cs</DependentUpon>
     </Compile>
+    <Compile Include="duyurular.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="duyurular.Designer.cs">
+      <DependentUpon>duyurular.cs</DependentUpon>
+    </Compile>
     <Compile Include="ekipman.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +123,12 @@
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gorusoneri.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gorusoneri.Designer.cs">
+      <DependentUpon>gorusoneri.cs</DependentUpon>
     </Compile>
     <Compile Include="Hastacs.cs">
       <SubType>Form</SubType>
@@ -165,6 +177,9 @@
     <EmbeddedResource Include="Doktor.resx">
       <DependentUpon>Doktor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="duyurular.resx">
+      <DependentUpon>duyurular.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ekipman.resx">
       <DependentUpon>ekipman.cs</DependentUpon>
     </EmbeddedResource>
@@ -173,6 +188,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gorusoneri.resx">
+      <DependentUpon>gorusoneri.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Hastacs.resx">
       <DependentUpon>Hastacs.cs</DependentUpon>

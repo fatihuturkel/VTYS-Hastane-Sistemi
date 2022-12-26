@@ -77,5 +77,23 @@ namespace hastane_deneme_1
             envanter envanter = new envanter();
             envanter.Show();
         }
+
+        private void duyurular_Click(object sender, EventArgs e)
+        {
+            duyurular duyurular = new duyurular();
+            duyurular.Show();
+        }
+
+        private void gorusoneri_Click(object sender, EventArgs e)
+        {
+            gorusoneri gorusoneri = new gorusoneri();
+            gorusoneri.Show();
+        }
+
+        private void Recete_Click(object sender, EventArgs e)
+        {
+            Recete recete = new Recete();
+            recete.Show();
+        }
     }
 }

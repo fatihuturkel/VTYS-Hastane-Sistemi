@@ -21,11 +21,6 @@ namespace hastane_deneme_1
             InitializeComponent();
         }
 
-        private void ilac_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void Listele_Click(object sender, EventArgs e)
         {
             string sorgu = "select* from ilac";
@@ -39,9 +34,9 @@ namespace hastane_deneme_1
         private void Ekle_Click(object sender, EventArgs e)
         {
             NpgsqlCommand ekle = new NpgsqlCommand("insert into ilac (isim,marka,aciklama) values (@isim,@marka,@aciklama)", baglanti);
-            ekle.Parameters.AddWithValue("@isim", isim.Text);
-            ekle.Parameters.AddWithValue("@marka", marka.Text);
-            ekle.Parameters.AddWithValue("@aciklama", aciklama.Text);
+            ekle.Parameters.AddWithValue("@isim", isimtextbox.Text);
+            ekle.Parameters.AddWithValue("@marka", markatextbox.Text);
+            ekle.Parameters.AddWithValue("@aciklama", aciklamatextbox.Text);
             baglanti.Open();
             ekle.ExecuteNonQuery();
             baglanti.Close();
@@ -50,25 +45,41 @@ namespace hastane_deneme_1
 
         private void Sil_Click(object sender, EventArgs e)
         {
-            baglanti.Open();
-            NpgsqlCommand komut2 = new NpgsqlCommand("Delete from ilac where ilacid=@ilacid", baglanti);
-            komut2.Parameters.AddWithValue("@ilacid", Convert.ToInt32(ilacid.Text));
-            komut2.ExecuteNonQuery();
-            baglanti.Close();
-            MessageBox.Show("İlac silme işlemi başarılı bir şekilde gerçekleşti", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            if (ilacidtextbox.Text!="")
+            {
+                baglanti.Open();
+                NpgsqlCommand komut2 = new NpgsqlCommand("Delete from ilac where ilacid=@ilacid", baglanti);
+                komut2.Parameters.AddWithValue("@ilacid", Convert.ToInt32(ilacidtextbox.Text));
+                komut2.ExecuteNonQuery();
+                baglanti.Close();
+                MessageBox.Show("İlac silme işlemi başarılı bir şekilde gerçekleşti", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+            }
+            else
+            {
+                MessageBox.Show("Lütfen silinecek ilacın ilac id'sini giriniz");
+            }   
+
         }
 
         private void Güncelle_Click(object sender, EventArgs e)
         {
-            baglanti.Open();
-            NpgsqlCommand komut3 = new NpgsqlCommand("update ilac set  isim=@isim,marka=@marka,aciklama=@aciklama where ilacid=@ilacid", baglanti);
-            komut3.Parameters.AddWithValue("@isim", isim.Text);
-            komut3.Parameters.AddWithValue("@marka", marka.Text);
-            komut3.Parameters.AddWithValue("@aciklama", aciklama.Text);
-            komut3.Parameters.AddWithValue("@ilacid", int.Parse(ilacid.Text));
-            komut3.ExecuteNonQuery();
-            MessageBox.Show("İlac güncelleme işlemi başarılı bir şekilde gerçekleşti", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            baglanti.Close();
+            if (ilacidtextbox.Text!="")
+            {
+                baglanti.Open();
+                NpgsqlCommand komut3 = new NpgsqlCommand("update ilac set  isim=@isim,marka=@marka,aciklama=@aciklama where ilacid=@ilacid", baglanti);
+                komut3.Parameters.AddWithValue("@isim", isimtextbox.Text);
+                komut3.Parameters.AddWithValue("@marka", markatextbox.Text);
+                komut3.Parameters.AddWithValue("@aciklama", aciklamatextbox.Text);
+                komut3.Parameters.AddWithValue("@ilacid", int.Parse(ilacidtextbox.Text));
+                komut3.ExecuteNonQuery();
+                MessageBox.Show("İlac güncelleme işlemi başarılı bir şekilde gerçekleşti", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                baglanti.Close();
+            }
+            else
+            {
+                MessageBox.Show("Lütfen güncellenecek ilacın ilac id'sini giriniz");
+            }
 
         }
     }

@@ -78,8 +78,8 @@ namespace hastane_deneme_1
                         baglanti.Close();
                     }
                 }
-
-
+                
+                baglanti.Close();
                 /*if (MessageBox.Show("Tedavi Başarıyla Eklendi", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
                 {
                     this.Close();

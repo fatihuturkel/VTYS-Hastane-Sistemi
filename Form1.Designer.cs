@@ -41,6 +41,9 @@ namespace hastane_deneme_1
             this.hemsire_button = new System.Windows.Forms.Button();
             this.randevu_button = new System.Windows.Forms.Button();
             this.Tedavi_button = new System.Windows.Forms.Button();
+            this.duyurular = new System.Windows.Forms.Button();
+            this.gorusoneri = new System.Windows.Forms.Button();
+            this.Recete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // doktor_button
@@ -55,10 +58,10 @@ namespace hastane_deneme_1
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(541, 281);
+            this.button2.Location = new System.Drawing.Point(35, 318);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(116, 36);
+            this.button2.Size = new System.Drawing.Size(116, 29);
             this.button2.TabIndex = 1;
             this.button2.Text = "sigorta";
             this.button2.UseVisualStyleBackColor = true;
@@ -66,10 +69,10 @@ namespace hastane_deneme_1
             // 
             // ilac
             // 
-            this.ilac.Location = new System.Drawing.Point(541, 230);
+            this.ilac.Location = new System.Drawing.Point(263, 177);
             this.ilac.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ilac.Name = "ilac";
-            this.ilac.Size = new System.Drawing.Size(113, 33);
+            this.ilac.Size = new System.Drawing.Size(104, 33);
             this.ilac.TabIndex = 2;
             this.ilac.Text = "ilac";
             this.ilac.UseVisualStyleBackColor = true;
@@ -151,11 +154,46 @@ namespace hastane_deneme_1
             this.Tedavi_button.UseVisualStyleBackColor = true;
             this.Tedavi_button.Click += new System.EventHandler(this.Tedavi_button_Click);
             // 
+            // duyurular
+            // 
+            this.duyurular.Location = new System.Drawing.Point(591, 273);
+            this.duyurular.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.duyurular.Name = "duyurular";
+            this.duyurular.Size = new System.Drawing.Size(108, 31);
+            this.duyurular.TabIndex = 9;
+            this.duyurular.Text = "duyurular";
+            this.duyurular.UseVisualStyleBackColor = true;
+            this.duyurular.Click += new System.EventHandler(this.duyurular_Click);
+            // 
+            // gorusoneri
+            // 
+            this.gorusoneri.Location = new System.Drawing.Point(591, 318);
+            this.gorusoneri.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gorusoneri.Name = "gorusoneri";
+            this.gorusoneri.Size = new System.Drawing.Size(108, 31);
+            this.gorusoneri.TabIndex = 10;
+            this.gorusoneri.Text = "gorusoneri";
+            this.gorusoneri.UseVisualStyleBackColor = true;
+            this.gorusoneri.Click += new System.EventHandler(this.gorusoneri_Click);
+            // 
+            // Recete
+            // 
+            this.Recete.Location = new System.Drawing.Point(373, 109);
+            this.Recete.Name = "Recete";
+            this.Recete.Size = new System.Drawing.Size(104, 29);
+            this.Recete.TabIndex = 11;
+            this.Recete.Text = "Recete";
+            this.Recete.UseVisualStyleBackColor = true;
+            this.Recete.Click += new System.EventHandler(this.Recete_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(711, 360);
+            this.Controls.Add(this.Recete);
+            this.Controls.Add(this.gorusoneri);
+            this.Controls.Add(this.duyurular);
             this.Controls.Add(this.Tedavi_button);
             this.Controls.Add(this.randevu_button);
             this.Controls.Add(this.islem);
@@ -186,6 +224,9 @@ namespace hastane_deneme_1
         private System.Windows.Forms.Button hemsire_button;
         private Button randevu_button;
         private Button Tedavi_button;
+        private Button duyurular;
+        private Button gorusoneri;
+        private Button Recete;
     }
 }
 

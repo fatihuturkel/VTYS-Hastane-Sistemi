@@ -237,7 +237,7 @@
             // 
             // Ara
             // 
-            this.Ara.Location = new System.Drawing.Point(895, 15);
+            this.Ara.Location = new System.Drawing.Point(893, 15);
             this.Ara.Name = "Ara";
             this.Ara.Size = new System.Drawing.Size(107, 42);
             this.Ara.TabIndex = 75;

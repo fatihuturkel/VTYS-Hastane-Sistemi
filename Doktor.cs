@@ -138,6 +138,13 @@ namespace hastane_deneme_1
                     baglanti.Open();
                     deletedoktor.ExecuteNonQuery();
                     baglanti.Close();
+                    NpgsqlCommand updatekisi = new NpgsqlCommand("update kisi set doktor=@doktor where tcno=@tcno", baglanti);
+                    updatekisi.Parameters.AddWithValue("@tcno", Tc_textBox.Text);
+                    updatekisi.Parameters.AddWithValue("@doktor", false);
+                    baglanti.Open();
+                    updatekisi.ExecuteNonQuery();
+                    baglanti.Close();
+                    MessageBox.Show("Doktor kaydı başarıyla silindi.");
                 }
             }
         }
